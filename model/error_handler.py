@@ -4,4 +4,4 @@ class ErrorHandler():
     def room_exist(self):
         print('Sorry. Room already exist')
     def no_available_room(self):
-        print('Sorry. No available room exist ')
+        print('Sorry.Room does not exist ')

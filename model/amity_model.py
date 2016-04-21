@@ -38,3 +38,5 @@ class Amity():
         Pickler().load_livings()
     def print_room(self,room_name):
         Pickler().print_room(room_name)
+    def reallocate_person(self,person_id,new_room_name):
+        Pickler().reallocate_person(person_id, new_room_name)

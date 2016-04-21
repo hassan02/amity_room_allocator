@@ -40,7 +40,7 @@ class Pickler(object):
                 members_list = 'EMPTY'
             else:
                 members_list = ", ".join(data.members.values())
-            print ('%s-%d(OFFICE)\n%s\n' % (data.room_name.upper(),data.no_of_occupants, members_list))
+            print ('%s-%d(OFFICE)\n%s\n' % (data.room_name.upper(),data.no_of_occupants, members_list.upper()))
 
     def load_livings(self):
         print('Loading All Living Rooms...')
@@ -50,7 +50,7 @@ class Pickler(object):
                 members_list = 'EMPTY'
             else:
                 members_list = ", ".join(data.members.values())
-            print ('%s-%d(LIVING)\n%s\n' % (data.room_name.upper(),data.no_of_occupants, members_list))
+            print ('%s-%d(LIVING)\n%s\n' % (data.room_name.upper(),data.no_of_occupants, members_list.upper()))
         
     def add_staff(self,first_name, last_name):
         staff_name = Staff(first_name,last_name).fullname
@@ -121,7 +121,7 @@ class Pickler(object):
                 members_list = 'EMPTY'
             else:
                 members_list = ", ".join(data.members.values())
-            print ('%s-%d(LIVING)\n%s\n' % (data.room_name.upper(),data.no_of_occupants, members_list))
+            print ('%s-%d(LIVING)\n%s\n' % (data.room_name.upper(),data.no_of_occupants, members_list.upper()))
         elif room_name in office_data:
             print('Loading %s members...'% (room_name.upper()))
             data = office_data[room_name]
@@ -129,11 +129,15 @@ class Pickler(object):
                 members_list = 'EMPTY'
             else:
                 members_list = ", ".join(data.members.values())
-            print ('%s-%d(OFFICE)\n%s\n' % (data.room_name.upper(),data.no_of_occupants, members_list))
+            print ('%s-%d(OFFICE)\n%s\n' % (data.room_name.upper(),data.no_of_occupants, members_list.upper()))
         else:
-            print 'Room not exist'
+            ErrorHandler().no_available_room()    
 
-
+    def reallocate_person(self, person_id, new_room_name):
+        pass
+        #new_room_name = new_room_name.lower()
+        #if new_room_name in living_data:
+        #    data = 
 
 
 #    count = int(raw_input('Enter number of fellows to add'))
