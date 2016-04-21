@@ -87,7 +87,7 @@ class Pickler(object):
     def get_available_living(self):
         available_livings = []
         for key in living_data:
-            if living_data[key].no_of_occupants < 6:
+            if living_data[key].no_of_occupants < 4:
                 available_livings.append(key)
         if available_livings != []:
             avail_living = available_livings[random.randint(0,len(available_livings)-1)]
@@ -113,6 +113,7 @@ class Pickler(object):
                 return staff_id
 
     def print_room(self,room_name):
+        room_name = room_name.lower()
         if room_name in living_data:
             print('Loading %s members...' % (room_name.upper()))
             data = living_data[room_name]
