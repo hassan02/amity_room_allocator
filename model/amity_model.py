@@ -6,16 +6,19 @@ from data.pickler import Pickler
 #from data import DataManager
 
 class Amity():
-    def add_person(self, firstname, lastname,person_type,living_choice):
+    def add_person(self, firstname, lastname, person_type, living_choice):
         if person_type == 'STAFF' and living_choice == 'Y':
             raise Exception('Mismatch. Staff cannot be allocated living space')
         elif person_type == 'STAFF' and (living_choice == 'N' or living_choice == None):
             self.add_staff(firstname,lastname)
-
+        elif person_type == 'FELLOW' and living_choice == 'Y':
+            self.add_fellow(firstname,lastname)
+        else:
+            print 'Unidentifiable format'
     def add_staff(self,firstname,lastname):
         Pickler().add_staff(firstname,lastname)
     def add_fellow(self,firstname,lastname):
-        pass
+        Pickler().add_fellow(firstname,lastname)
         #fellow = Fellow(name)
     def create_room(self,room_name,room_type):
         if not isinstance(room_name,str):
@@ -32,3 +35,6 @@ class Amity():
         Pickler().save_living(living_name)
     def print_allocations(self):
         Pickler().load_offices()
+        Pickler().load_livings()
+    def print_room(self,room_name):
+        Pickler().print_room(room_name)
