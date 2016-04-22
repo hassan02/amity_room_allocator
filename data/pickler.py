@@ -41,7 +41,8 @@ class Pickler(object):
                 members_list = 'EMPTY'
             else:
                 members_list = ", ".join(data.members.values())
-            office_output += ('%s-%d(OFFICE)\n%s%s\n\n' % (data.room_name.upper(),data.no_of_occupants, data.members.keys(), members_list.upper()))
+            data.no_of_occupants = len(data.members)
+            office_output += ('%s-%d(OFFICE)\n%s\n\n' % (data.room_name.upper(),data.no_of_occupants,  members_list.upper()))
         print(office_output)
     def load_livings(self):
         living_output = ''
@@ -52,7 +53,8 @@ class Pickler(object):
                 members_list = 'EMPTY'
             else:
                 members_list = ", ".join(data.members.values())
-            living_output += ('%s-%d(LIVING)\n%s%s\n\n' % (data.room_name.upper(),data.no_of_occupants, data.members.keys(), members_list.upper()))
+            data.no_of_occupants = len(data.members)
+            living_output += ('%s-%d(LIVING)\n%s\n\n' % (data.room_name.upper(),data.no_of_occupants, members_list.upper()))
         print(living_output)
     def add_staff(self,first_name, last_name):
         staff_name = Staff(first_name,last_name).fullname
@@ -60,7 +62,7 @@ class Pickler(object):
         picked_room = self.get_available_office()
         data = office_data[picked_room]
         data.members[staff_id] = staff_name
-        data.no_of_occupants +=  1
+        data.no_of_occupants = len(data.members)
         office_data[picked_room] = data
         print('Staff %s with ID NO: %s added to %s' %(staff_name, staff_id, picked_room.upper()))
 
@@ -70,7 +72,7 @@ class Pickler(object):
         picked_room = self.get_available_living()
         data = living_data[picked_room]
         data.members[fellow_id] = fellow_name
-        data.no_of_occupants +=  1
+        data.no_of_occupants = len(data.members)
         living_data[picked_room] = data
         print('Fellow %s with ID NO: %s added to %s' %(fellow_name, fellow_id, picked_room.upper()))
 
@@ -123,6 +125,7 @@ class Pickler(object):
                 members_list = 'EMPTY'
             else:
                 members_list = ", ".join(data.members.values())
+            data.no_of_occupants = len(data.members)
             print ('%s-%d(LIVING)\n%s\n' % (data.room_name.upper(),data.no_of_occupants, members_list.upper()))
         elif room_name in office_data:
             print('Loading %s (OFFICE) members...'% (room_name.upper()))
@@ -131,6 +134,7 @@ class Pickler(object):
                 members_list = 'EMPTY'
             else:
                 members_list = ", ".join(data.members.values())
+            data.no_of_occupants = len(data.members)
             print ('%s-%d(OFFICE)\n%s\n' % (data.room_name.upper(),data.no_of_occupants, members_list.upper()))
         else:
             ErrorHandler().no_available_room()    
@@ -182,11 +186,11 @@ class Pickler(object):
                     data = living_data[new_room_name]
                     if data.no_of_occupants < 4:
                         data.members[person_id] = fellow_name
-                        data.no_of_occupants = len(data.members())
+                        data.no_of_occupants = len(dat.members)
                         living_data[new_room_name] = data
                         fellow_data = living_data[fellow_room]
                         fellow_data.members.pop(person_id)
-                        fellow_data.no_of_occupants -= 1
+                        fellow_data.no_of_occupants = len(fellow_data.members)
                         living_data[fellow_room] = fellow_data
                         print('%s with ID: %s has been reallocated to %s' %(fellow_name, person_id, new_room_name.upper()))
                     else:
