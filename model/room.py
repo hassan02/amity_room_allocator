@@ -3,7 +3,7 @@ class Room(object):
         self.setName(name)
         self.room_name = self.getName()
         self.members = {}
-        self.no_of_occupants = 0
+        self.no_of_occupants = len(self.members)
     def getName(self):
         return self.__name
 

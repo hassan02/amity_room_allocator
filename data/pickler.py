@@ -33,6 +33,7 @@ class Pickler(object):
         # Write to the stream 
 
     def load_offices(self):
+        office_output = ''
         print('Loading All Offices...')
         for key in office_data:
             data = office_data[key]
@@ -40,9 +41,10 @@ class Pickler(object):
                 members_list = 'EMPTY'
             else:
                 members_list = ", ".join(data.members.values())
-            print ('%s-%d(OFFICE)\n%s\n' % (data.room_name.upper(),data.no_of_occupants, members_list.upper()))
-
+            office_output += ('%s-%d(OFFICE)\n%s%s\n\n' % (data.room_name.upper(),data.no_of_occupants, data.members.keys(), members_list.upper()))
+        print(office_output)
     def load_livings(self):
+        living_output = ''
         print('Loading All Living Rooms...')
         for key in living_data:
             data = living_data[key]
@@ -50,8 +52,8 @@ class Pickler(object):
                 members_list = 'EMPTY'
             else:
                 members_list = ", ".join(data.members.values())
-            print ('%s-%d(LIVING)\n%s\n' % (data.room_name.upper(),data.no_of_occupants, members_list.upper()))
-        
+            living_output += ('%s-%d(LIVING)\n%s%s\n\n' % (data.room_name.upper(),data.no_of_occupants, data.members.keys(), members_list.upper()))
+        print(living_output)
     def add_staff(self,first_name, last_name):
         staff_name = Staff(first_name,last_name).fullname
         staff_id = self.generate_id('STAFF')
@@ -115,7 +117,7 @@ class Pickler(object):
     def print_room(self,room_name):
         room_name = room_name.lower()
         if room_name in living_data:
-            print('Loading %s members...' % (room_name.upper()))
+            print('Loading %s (LIVING) members...' % (room_name.upper()))
             data = living_data[room_name]
             if data.members == {}:
                 members_list = 'EMPTY'
@@ -123,7 +125,7 @@ class Pickler(object):
                 members_list = ", ".join(data.members.values())
             print ('%s-%d(LIVING)\n%s\n' % (data.room_name.upper(),data.no_of_occupants, members_list.upper()))
         elif room_name in office_data:
-            print('Loading %s members...'% (room_name.upper()))
+            print('Loading %s (OFFICE) members...'% (room_name.upper()))
             data = office_data[room_name]
             if data.members == {}:
                 members_list = 'EMPTY'
@@ -133,8 +135,101 @@ class Pickler(object):
         else:
             ErrorHandler().no_available_room()    
 
+    def get_fellow_room(self, person_id):
+        for key in living_data:
+            data = living_data[key]
+            if person_id in data.members:
+                return key
+                break
+
+    def get_fellow_name(self, person_id):
+        for key in living_data:
+            data = living_data[key]
+            if person_id in data.members:
+                return data.members[person_id]
+                break       
+    
+    def get_staff_room(self, person_id):
+        for key in office_data:
+            data = office_data[key]
+            if person_id in data.members:
+                return key
+                break
+
+    def get_staff_name(self, person_id):
+        for key in office_data:
+            data = office_data[key]
+            if person_id in data.members:
+                return data.members[person_id]
+                break  
+
     def reallocate_person(self, person_id, new_room_name):
-        pass
+        if person_id.startswith('F'):
+            self.reallocate_fellow(person_id,new_room_name)
+        elif person_id.startswith('S'):
+            self.reallocate_staff(person_id, new_room_name)
+        else:
+            print('Person ID invalid. Must start with F or S')
+
+    def reallocate_fellow(self, person_id, new_room_name):
+        person_id = person_id.upper()
+        fellow_room = self.get_fellow_room(person_id)
+        fellow_name = self.get_fellow_name(person_id)
+        new_room_name = new_room_name.lower()
+        if fellow_room != new_room_name:
+            if fellow_room != None and fellow_name != None:
+                if new_room_name in living_data:
+                    data = living_data[new_room_name]
+                    if data.no_of_occupants < 4:
+                        data.members[person_id] = fellow_name
+                        data.no_of_occupants = len(data.members())
+                        living_data[new_room_name] = data
+                        fellow_data = living_data[fellow_room]
+                        fellow_data.members.pop(person_id)
+                        fellow_data.no_of_occupants -= 1
+                        living_data[fellow_room] = fellow_data
+                        print('%s with ID: %s has been reallocated to %s' %(fellow_name, person_id, new_room_name.upper()))
+                    else:
+                        print('Room %s is full.' %(new_room_name.upper()))                
+                else:
+                    print('Room %s do not exist does not exist as Living space' % (new_room_name.upper()))
+            else:
+                print('Fellow ID: %s does not exist'% (person_id))
+        else:
+            print('FELLOW %s with ID: %s is already in %s (LIVING)' %(fellow_name, person_id, new_room_name.upper()))
+
+    def reallocate_staff(self, person_id, new_room_name):
+        person_id = person_id.upper()
+        staff_room = self.get_staff_room(person_id)
+        staff_name = self.get_staff_name(person_id)
+        new_room_name = new_room_name.lower()
+        if staff_room != new_room_name:
+            if staff_room != None and staff_name != None:
+                if new_room_name in office_data:
+                    data = office_data[new_room_name]
+                    if data.no_of_occupants < 6:
+                        data.members[person_id] = staff_name
+                        data.no_of_occupants += 1
+                        office_data[new_room_name] = data
+                        staff_data = office_data[staff_room]
+                        staff_data.members.pop(person_id)
+                        staff_data.no_of_occupants = len(staff_data.members)
+                        office_data[staff_room] = staff_data
+                        print('STAFF %s with ID: %s has been reallocated to %s (OFFICE)' %(staff_name, person_id, new_room_name.upper()))
+                    else:
+                        print('Room %s is full.' %(new_room_name.upper()))                
+                else:
+                    print('Room %s do not exist as Office' %(new_room_name.upper()))
+            else:
+                print('Staff ID: %s does not exist'% (person_id))
+        else:
+            print('STAFF %s with ID: %s is already in %s' %(staff_name, person_id, new_room_name.upper()))
+
+
+
+
+
+
         #new_room_name = new_room_name.lower()
         #if new_room_name in living_data:
         #    data = 
