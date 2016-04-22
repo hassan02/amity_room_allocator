@@ -25,6 +25,7 @@ class Pickler(object):
         else:
             ErrorHandler().room_exist()
 
+
     def save_living(self,living_name):
         if living_name.lower() not in living_data and living_name.lower() not in office_data: 
             living = Living(living_name)
@@ -46,6 +47,7 @@ class Pickler(object):
             data.no_of_occupants = len(data.members)
             office_output += ('%s-%d(OFFICE)\n%s\n\n' % (data.room_name.upper(),data.no_of_occupants,  members_list.upper()))
         print(office_output)
+        office_data.close()
     def load_livings(self):
         living_output = ''
         print('Loading All Living Rooms...')
@@ -58,6 +60,7 @@ class Pickler(object):
             data.no_of_occupants = len(data.members)
             living_output += ('%s-%d(LIVING)\n%s\n\n' % (data.room_name.upper(),data.no_of_occupants, members_list.upper()))
         print(living_output)
+        living_data.close()
     def add_staff(self,first_name, last_name):
         staff_name = Staff(first_name,last_name).fullname
         staff_id = self.generate_id('STAFF')
