@@ -1,11 +1,13 @@
-import shelve
-import string
-import random
+from os import sys, path
+sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 from model.living import Living
 from model.office import Office
 from model.staff import Staff
 from model.fellow import Fellow
 from model.error_handler import ErrorHandler
+import shelve
+import string
+import random
 try:
    import cPickle as pickle
 except:
