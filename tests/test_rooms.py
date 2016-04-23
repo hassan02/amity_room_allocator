@@ -18,6 +18,7 @@ class TestRoom(unittest.TestCase):
         self.assertEqual(self.room.members, {})
     def test_new_room_occupants(self):
         self.assertEqual(self.room.no_of_occupants, 0)
+    
 
 class TestOffice(unittest.TestCase):
     office = Office('Neptune')
@@ -42,5 +43,8 @@ class TestLiving(unittest.TestCase):
         self.assertEqual(self.living.members, {})
     def test_new_living_occupants(self):
         self.assertEqual(self.living.no_of_occupants, 0)
+    def test_new_living_max_occupants(self):
+        self.assertEqual(self.living.max_occupants, 4)
+
 if __name__ == '__main__':
     unittest.main()

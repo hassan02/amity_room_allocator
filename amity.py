@@ -4,6 +4,7 @@ Usage:
   amity.py show
   amity.py print_room <room_name>
   amity.py clear_room <room_name>
+  amity.py remove_room <room_name>
   amity.py create_room <room_name> <room_type>
   amity.py add_person <first_name> <last_name> <STAFF/FELLOW> [<wants_accommodation>]
   amity.py print_allocations
@@ -45,4 +46,6 @@ if __name__ == '__main__':
     Amity().clear_room(arguments['<room_name>'])
   if arguments['reallocate_person']:
     Amity().reallocate_person(arguments['<person_identifier>'], arguments['<new_room_name>'])
+  if arguments['remove_room']:
+    Amity().remove_room(arguments['<room_name>'])
     

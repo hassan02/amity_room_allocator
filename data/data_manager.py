@@ -17,33 +17,34 @@ except:
 
 
     
-class Pickler(object):
+class DataManager(object):
 
-    def __init__(self, id_list = shelve.open('persons_ids'), office_data = shelve.open('offices'), living_data = shelve.open('living')):
-        self.id_list = id_list
-        self.office_data = office_data
-        self.living_data = living_data
+    def __init__(self, id_list = 'persons_ids', office_data = 'offices', living_data = 'living'):
+        self.id_list = shelve.open(id_list)
+        self.office_data = shelve.open(office_data)
+        self.living_data = shelve.open(living_data)
 
     def save_office(self,office_name):
         if office_name.lower() not in self.office_data and office_name.lower() not in self.living_data: 
             office = Office(office_name)
             self.office_data[office_name.lower()] = office
             print('Office %s created' % (office_name.upper()))
-            self.office_data.close()
-            self.living_data.close()
+            
         else:
             ErrorHandler().room_exist(office_name)
-
+        self.office_data.close()
+        self.living_data.close()
 
     def save_living(self,living_name):
         if living_name.lower() not in self.living_data and living_name.lower() not in self.office_data: 
             living = Living(living_name)
             self.living_data[living_name.lower()] = living
             print('Living Room %s created' % (living_name.upper()))
-            self.office_data.close()
-            self.living_data.close()
+           
         else:
             ErrorHandler().room_exist(living_name)
+        self.office_data.close()
+        self.living_data.close()
         # Write to the stream 
 
     def load_offices(self):
@@ -73,30 +74,6 @@ class Pickler(object):
         print(living_output)
         self.living_data.close()
     
-
-    def add_staff(self,first_name, last_name):
-        staff_name = Staff(first_name,last_name).fullname.upper()
-        staff_id = self.generate_id('STAFF')
-        picked_room = self.get_available_office()
-        data = self.office_data[picked_room]
-        data.members[staff_id] = staff_name
-        data.no_of_occupants = len(data.members)
-        self.office_data[picked_room] = data
-        self.office_data.close()
-        print('Staff %s with ID NO: %s added to %s' %(staff_name, staff_id, picked_room.upper()))
-
-    def add_fellow(self, first_name, last_name):
-        fellow_name = Fellow(first_name,last_name).fullname.upper()
-        fellow_id = self.generate_id('FELLOW')
-        picked_room = self.get_available_living()
-        data = self.living_data[picked_room]
-        data.members[fellow_id] = fellow_name
-        data.no_of_occupants = len(data.members)
-        self.living_data[picked_room] = data
-        self.living_data.close()
-        print('Fellow %s with ID NO: %s added to %s' %(fellow_name, fellow_id, picked_room.upper()))
-
-
     def get_available_office(self):
         available_offices = []
         if self.office_data != None:
@@ -127,6 +104,29 @@ class Pickler(object):
         else:
             print 'No available room exist'
 
+    def add_staff(self,first_name, last_name):
+        staff_name = Staff(first_name,last_name).fullname.upper()
+        staff_id = self.generate_id('STAFF')
+        picked_room = self.get_available_office()
+        data = self.office_data[picked_room]
+        data.members[staff_id] = staff_name
+        data.no_of_occupants = len(data.members)
+        self.office_data[picked_room] = data
+        self.office_data.close()
+        print('Staff %s with ID NO: %s added to %s' %(staff_name, staff_id, picked_room.upper()))
+
+    def add_fellow(self, first_name, last_name):
+        fellow_name = Fellow(first_name,last_name).fullname.upper()
+        fellow_id = self.generate_id('FELLOW')
+        data = self.living_data[picked_room]
+        data.members[fellow_id] = fellow_name
+        data.no_of_occupants = len(data.members)
+        self.living_data[picked_room] = data
+        self.living_data.close()
+        print('Fellow %s with ID NO: %s added to %s' %(fellow_name, fellow_id, picked_room.upper()))
+
+
+    
     def generate_id(self,persons_type):
         if 'all_ids' not in self.id_list:
             self.id_list['all_ids'] = []
@@ -262,11 +262,13 @@ class Pickler(object):
         else:
             print('STAFF %s with ID: %s is already in %s' %(staff_name, person_id, new_room_name.upper()))
         self.office_data.close()
+
     def clear_room(self, room_name):
         room_name = room_name.lower()
         if room_name in self.living_data:
             data = self.living_data[room_name]
-            data.clear()
+            data.members.clear()
+            data.no_of_occupants = len(data.members)
             self.living_data[room_name] = data 
             print('Living room %s has been cleared'%(room_name.upper()))
         elif room_name in self.office_data:
@@ -278,9 +280,18 @@ class Pickler(object):
         else:
             ErrorHandler().no_available_room()  
 
-        self.living_data.close()
-        self.office_data.close()
-
+    def remove_room(self, room_name):
+        room_name = room_name.lower()
+        if room_name in self.living_data:
+            del self.living_data[room_name]
+            print('Living room %s has been removed'%(room_name.upper()))
+            self.living_data.close()
+        elif room_name in self.office_data:
+            del self.office_data[room_name]
+            print('Office %s has been removed'%(room_name.upper()))
+            self.office_data.close()
+        else:
+            ErrorHandler().no_available_room()  
 
 
         #new_room_name = new_room_name.lower()
