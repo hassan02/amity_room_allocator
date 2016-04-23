@@ -1,10 +1,12 @@
 """Amity Model
 
 Usage:
-  amity.py create_room (<room_name> <room_type>)...
+  amity.py show
+  amity.py print_room <room_name>
+  amity.py clear_room <room_name>
+  amity.py create_room <room_name> <room_type>
   amity.py add_person <first_name> <last_name> <STAFF/FELLOW> [<wants_accommodation>]
   amity.py print_allocations
-  amity.py print_room <room_name>
   amity.py reallocate_person <person_identifier> <new_room_name>
   amity.py -h | --help
 
@@ -12,10 +14,11 @@ Examples:
   amity.py create_room Moon office
   amity.py create_room Cedar living
   amity.py add_person HASSAN OYEBOADE FELLOW N
+  amity.py print_room obeche
   amity.py add_person SUNDAY NWUGURU FELLOW Y
   amity.py add_person PROSPER OTEMUYIWA STAFF
   amity.py reallocate_person F4EFDERFE ab
-  amity.py print_room obeche
+ 
 
 
 Options:
@@ -38,6 +41,8 @@ if __name__ == '__main__':
     Amity().print_allocations()
   if arguments['print_room']:
     Amity().print_room(arguments['<room_name>'])
+  if arguments['clear_room']:
+    Amity().clear_room(arguments['<room_name>'])
   if arguments['reallocate_person']:
     Amity().reallocate_person(arguments['<person_identifier>'], arguments['<new_room_name>'])
     

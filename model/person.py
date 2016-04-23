@@ -1,7 +1,8 @@
 class Person(object):
   def __init__(self, firstname, lastname):
     self.setName(firstname,lastname)
-    self.fullname = self.getName()
+    self.fullname = self.getName().upper()
+    
   
   def getName(self):
     return self.__firstname + ' ' + self.__lastname

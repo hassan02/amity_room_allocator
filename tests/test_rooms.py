@@ -29,6 +29,8 @@ class TestOffice(unittest.TestCase):
         self.assertEqual(self.office.members, {})
     def test_new_office_occupants(self):
         self.assertEqual(self.office.no_of_occupants, 0)
+    def test_new_office_max_occupants(self):
+        self.assertEqual(self.office.max_occupants, 6)
 
 class TestLiving(unittest.TestCase):
     living = Living('Iroko')
