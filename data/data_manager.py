@@ -23,6 +23,7 @@ class DataManager(object):
         self.id_list = shelve.open(id_list)
         self.office_data = shelve.open(office_data)
         self.living_data = shelve.open(living_data)
+        self.displayline = '..............................................................................'
 
     def save_office(self,office_name):
         if office_name.lower() not in self.office_data and office_name.lower() not in self.living_data: 
@@ -57,7 +58,7 @@ class DataManager(object):
             else:
                 members_list = ", ".join(data.members.values())
             data.no_of_occupants = len(data.members)
-            office_output += ('%s-%d(OFFICE)%s\n%s\n\n' % (data.room_name.upper(),data.no_of_occupants, data.max_occupants,  members_list.upper()))
+            office_output += ('%s(OFFICE) - %d of %d\n%s\n%s\n\n' % (data.room_name.upper(),data.no_of_occupants, data.max_occupants, self.displayline, members_list.upper()))
         print(office_output)
         self.office_data.close()
     def load_livings(self):
@@ -70,13 +71,13 @@ class DataManager(object):
             else:
                 members_list = ", ".join(data.members.values())
             data.no_of_occupants = len(data.members)
-            living_output += ('%s-%d(LIVING)%s\n%s\n\n' % (data.room_name.upper(),data.no_of_occupants, data.max_occupants, members_list.upper()))
+            living_output += ('%s(LIVING) - %d of %d\n%s\n%s\n\n' % (data.room_name.upper(),data.no_of_occupants, data.max_occupants, self.displayline, members_list.upper()))
         print(living_output)
         self.living_data.close()
     
     def get_available_office(self):
         available_offices = []
-        if self.office_data != None:
+        if self.office_data != {}:
             for key in self.office_data:
                 if self.office_data[key].no_of_occupants < self.office_data[key].max_occupants:
                     available_offices.append(key)
@@ -85,13 +86,13 @@ class DataManager(object):
                 return avail_office
                 self.office_data.close()
             else:
-                ErrorHandler().no_available_room()
+                ErrorHandler().no_available_room('office')
         else:
             print 'No available office exist'
 
     def get_available_living(self):
         available_livings = []
-        if self.living_data != None:
+        if self.living_data != {}:
             for key in self.living_data:
                 if self.living_data[key].no_of_occupants < self.living_data[key].max_occupants:
                     available_livings.append(key)
@@ -100,30 +101,33 @@ class DataManager(object):
                 return avail_living
                 self.living_data.close()
             else:
-                ErrorHandler().no_available_room()
+                ErrorHandler().no_available_room('living room')
         else:
             print 'No available room exist'
 
     def add_staff(self,first_name, last_name):
-        staff_name = Staff(first_name,last_name).fullname.upper()
-        staff_id = self.generate_id('STAFF')
-        picked_room = self.get_available_office()
-        data = self.office_data[picked_room]
-        data.members[staff_id] = staff_name
-        data.no_of_occupants = len(data.members)
-        self.office_data[picked_room] = data
-        self.office_data.close()
-        print('Staff %s with ID NO: %s added to %s' %(staff_name, staff_id, picked_room.upper()))
+        if self.get_available_office() != None:
+            picked_room = self.get_available_office()
+            staff_name = Staff(first_name,last_name).fullname.upper()
+            staff_id = self.generate_id('STAFF')
+            data = self.office_data[picked_room]
+            data.members[staff_id] = staff_name
+            data.no_of_occupants = len(data.members)
+            self.office_data[picked_room] = data
+            self.office_data.close()
+            print('Staff %s with ID NO: %s added to %s' %(staff_name, staff_id, picked_room.upper()))
 
     def add_fellow(self, first_name, last_name):
-        fellow_name = Fellow(first_name,last_name).fullname.upper()
-        fellow_id = self.generate_id('FELLOW')
-        data = self.living_data[picked_room]
-        data.members[fellow_id] = fellow_name
-        data.no_of_occupants = len(data.members)
-        self.living_data[picked_room] = data
-        self.living_data.close()
-        print('Fellow %s with ID NO: %s added to %s' %(fellow_name, fellow_id, picked_room.upper()))
+        if self.get_available_living() != None:
+            picked_room = self.get_available_living()
+            fellow_name = Fellow(first_name,last_name).fullname.upper()
+            fellow_id = self.generate_id('FELLOW')
+            data = self.living_data[picked_room]
+            data.members[fellow_id] = fellow_name
+            data.no_of_occupants = len(data.members)
+            self.living_data[picked_room] = data
+            self.living_data.close()
+            print('Fellow %s with ID NO: %s added to %s' %(fellow_name, fellow_id, picked_room.upper()))
 
 
     
@@ -157,7 +161,7 @@ class DataManager(object):
             else:
                 members_list = ", ".join(data.members.values())
             data.no_of_occupants = len(data.members)
-            print ('%s-%d(LIVING)%s\n%s\n' % (data.room_name.upper(),data.no_of_occupants, data.max_occupants, members_list.upper()))
+            print('%s(LIVING) - %d of %d\n%s\n%s\n\n' % (data.room_name.upper(),data.no_of_occupants, data.max_occupants, self.displayline, members_list.upper()))
             self.living_data.close()
         elif room_name in self.office_data:
             print('Loading %s (OFFICE) members...'% (room_name.upper()))
@@ -167,10 +171,10 @@ class DataManager(object):
             else:
                 members_list = ", ".join(data.members.values())
             data.no_of_occupants = len(data.members)
-            print ('%s-%d(OFFICE)%s\n%s\n' % (data.room_name.upper(),data.no_of_occupants, data.max_occupants, members_list.upper()))
-            sel.office_data.close()
+            print('%s(OFFICE) - %d of %d\n%s\n%s\n\n' % (data.room_name.upper(),data.no_of_occupants, data.max_occupants, self.displayline, members_list.upper()))
+            self.office_data.close()
         else:
-            ErrorHandler().no_available_room()    
+            ErrorHandler().room_not_exist(room_name)    
 
     def get_fellow_room(self, person_id):
         for key in self.living_data:
@@ -278,7 +282,7 @@ class DataManager(object):
             self.office_data[room_name] = data
             print('Office %s has been cleared'%(room_name.upper()))
         else:
-            ErrorHandler().no_available_room()  
+            ErrorHandler().room_not_exist(room_name)  
 
     def remove_room(self, room_name):
         room_name = room_name.lower()
@@ -291,7 +295,7 @@ class DataManager(object):
             print('Office %s has been removed'%(room_name.upper()))
             self.office_data.close()
         else:
-            ErrorHandler().no_available_room()  
+            ErrorHandler().room_not_exist(room_name)
 
 
         #new_room_name = new_room_name.lower()
