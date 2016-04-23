@@ -5,6 +5,7 @@ from model.office import Office
 from model.staff import Staff
 from model.fellow import Fellow
 from model.error_handler import ErrorHandler
+
 import shelve
 import string
 import random
@@ -23,7 +24,7 @@ class Pickler(object):
             office_data[office_name.lower()] = office
             print('Office %s created' % (office_name.upper()))
         else:
-            ErrorHandler().room_exist()
+            ErrorHandler().room_exist(office_name)
 
 
     def save_living(self,living_name):
@@ -32,7 +33,7 @@ class Pickler(object):
             living_data[living_name.lower()] = living
             print('Living Room %s created' % (living_name.upper()))
         else:
-            ErrorHandler().room_exist()
+            ErrorHandler().room_exist(living_name)
         # Write to the stream 
 
     def load_offices(self):

@@ -1,12 +1,11 @@
 """Amity Model
 
 Usage:
-  amity.py show
+  amity.py create_room (<room_name> <room_type>)...
+  amity.py add_person <first_name> <last_name> <STAFF/FELLOW> [<wants_accommodation>]
   amity.py print_allocations
-  amity.py create_room <room_name> <room_type>
   amity.py print_room <room_name>
   amity.py reallocate_person <person_identifier> <new_room_name>
-  amity.py add_person <first_name> <last_name> <STAFF/FELLOW> [<wants_accommodation>]
   amity.py -h | --help
 
 Examples:
@@ -28,7 +27,11 @@ from model.amity_model import Amity
 if __name__ == '__main__':
   arguments = docopt(__doc__)
   if arguments['create_room']:
-    Amity().create_room(arguments['<room_name>'],arguments['<room_type>'])
+    room_names = arguments['<room_name>']
+    room_types = arguments['<room_type>']
+    for room_name, room_type in zip(room_names,room_types):
+      Amity().create_room(room_name,room_type)
+
   if arguments['add_person']:
     Amity().add_person(arguments['<first_name>'], arguments['<last_name>'], arguments['<STAFF/FELLOW>'], arguments['<wants_accommodation>'])
   if arguments['print_allocations']:
