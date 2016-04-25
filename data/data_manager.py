@@ -114,6 +114,8 @@ class DataManager(object):
             print 'No available room exist'
     def add_person(self, firstname, lastname, person_type, living_choice ='N'):
         self.open_file()
+        if living_choice == None:
+            living_choice = 'N'
         if person_type.upper() == 'STAFF' and living_choice.upper() == 'Y':
             raise Exception('Mismatch. Staff cannot be allocated living space')
         elif person_type.upper() == 'STAFF' and living_choice.upper() == 'N':
