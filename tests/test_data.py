@@ -25,6 +25,11 @@ class TestCreateOffice(unittest.TestCase):
       self.myid = shelve.open(self.test_office_data)
       self.new_amity.remove_room('neptune')
       self.assertEqual(0,len(self.myid))
+
+    def test_office_removed_from_data(self):
+      self.myid = shelve.open(self.test_office_data)
+      self.assertNotIn('neptune',self.myid)
+      self.close_file()
       
     def close_file(self):
       self.myid.close()
@@ -49,6 +54,12 @@ class TestCreateLiving(unittest.TestCase):
       self.myid = shelve.open(self.test_living_data)
       self.new_amity.remove_room('iroko')
       self.assertEqual(0,len(self.myid))
+
+    def test_living_removed_from_data(self):
+      self.myid = shelve.open(self.test_living_data)
+      self.assertNotIn('iroko',self.myid)
+      self.close_file()
+    
       
     def close_file(self):
       self.myid.close()
