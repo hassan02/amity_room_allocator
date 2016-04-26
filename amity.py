@@ -51,6 +51,8 @@ if __name__ == '__main__':
     Amity().add_person(arguments['<first_name>'], arguments['<last_name>'], arguments['<STAFF/FELLOW>'], arguments['<wants_accommodation>'])
   elif arguments['print_allocations']:
     Amity().print_allocations()
+  elif arguments['print_unallocated']:
+    Amity().print_unallocated()
   elif arguments['print_room']:
     Amity().print_room(arguments['<room_name>'])
   elif arguments['clear_room']:

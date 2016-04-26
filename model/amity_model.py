@@ -10,10 +10,10 @@ import shelve
 
 class Amity():
 
-    def __init__(self, office_data = 'data_files/offices', living_data = 'data_files/living'):
-        self.new_data = DataManager(office_data, living_data)
+    def __init__(self, office_data = 'data_files/offices', living_data = 'data_files/living', fellow_data = 'data_files/fellows', staff_data = 'data_files/staff'):
+        self.new_data = DataManager(office_data, living_data, fellow_data, staff_data)
 
-    def add_person(self, firstname, lastname, person_type, living_choice ='N'):
+    def add_person(self, firstname, lastname, person_type, living_choice):
         self.new_data.add_person(firstname,lastname,person_type,living_choice)
         self.new_data.close_file()
    
@@ -43,6 +43,9 @@ class Amity():
     def print_allocations(self):
         self.new_data.load_offices()
         self.new_data.load_livings()
+        self.new_data.close_file()
+    def print_unallocated(self):
+        self.new_data.print_unallocated()
         self.new_data.close_file()
     def print_room(self,room_name):
         self.new_data.print_room(room_name)
