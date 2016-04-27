@@ -1,5 +1,3 @@
-from os import sys, path
-sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 from staff import Staff
 from fellow import Fellow
 from living import Living

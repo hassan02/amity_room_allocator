@@ -1,21 +1,12 @@
-from colorama import *
-from os import sys, path
-sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+import random
+import shelve
+import string
+
 from model.living import Living
 from model.office import Office
 from model.staff import Staff
 from model.fellow import Fellow
 from model.error_handler import ErrorHandler
-
-import shelve
-import string
-import random
-try:
-   import cPickle as pickle
-except:
-   import pickle
-
-
 
     
 class DataManager(object):
@@ -32,7 +23,7 @@ class DataManager(object):
         self.fellow_data = shelve.open(self.fellows_data)
         self.staff_data = shelve.open(self.staffs_data)
         
-    def save_office(self,office_name):
+    def save_office(self, office_name):
         self.open_file()
         if office_name.lower() not in self.office_data and office_name.lower() not in self.living_data: 
             office = Office(office_name)
@@ -42,7 +33,7 @@ class DataManager(object):
         else:
             ErrorHandler().room_exist(office_name)
         
-    def save_living(self,living_name):
+    def save_living(self, living_name):
         self.open_file()
         if living_name.lower() not in self.living_data and living_name.lower() not in self.office_data: 
             living = Living(living_name)
@@ -69,6 +60,7 @@ class DataManager(object):
             office_output += ('%s(OFFICE) - %d of %d\n%s\n%s%s\n\n' % (data.room_name.upper(),data.no_of_occupants, data.max_occupants, self.displayline,data.members.keys(), members_list.upper()))
         print(office_output)
         #self.office_data.close()
+
     def load_livings(self):
         self.open_file()
         living_output = ''
@@ -115,6 +107,7 @@ class DataManager(object):
                 ErrorHandler().no_available_room('living room')
         else:
             print 'No available room exist'
+
     def add_person(self, firstname, lastname, person_type, living_choice):
         self.open_file()
         if living_choice == None:
@@ -284,6 +277,7 @@ class DataManager(object):
         else:
             print('FELLOW %s with ID: %s is already in %s (LIVING)' %(fellow_name, person_id, new_room_name.upper()))
         #self.living_data.close()
+
     def reallocate_staff(self, person_id, new_room_name):
         self.open_file()
         person_id = person_id.upper()
@@ -385,9 +379,10 @@ class DataManager(object):
         for key in self.staff_data:
             staff_data = self.staff_data[key]
             if staff_data.allocated == False:
-                unallocated_list += staff_data.fullname + ' (FELLOW)' + '\n'
+                unallocated_list += staff_data.fullname + ' (STAFF)' + '\n'
         
         print unallocated_list
+        
     def close_file(self):
         self.office_data.close()
         self.living_data.close()
