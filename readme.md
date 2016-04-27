@@ -26,3 +26,36 @@ SQLite database. Specifying the ​­­db​ parameter explicitly stores the dat
 sqlite_database​ specified.
 
 9. load_state <sqlite_database>​ - Loads data from a database into the application.
+
+Using the system.
+
+Usage:
+  amity.py create_room (<room_names> <room_types>)...
+  amity.py add_person <first_name> <last_name> <STAFF/FELLOW> [<wants_accommodation>]
+  amity.py reallocate_person <person_identifier> <new_room_name>
+  amity.py load_people <filename>
+  amity.py print_allocations [-o=filename]
+  amity.py print_unallocated [-o=filename]
+  amity.py print_room <room_name>
+  amity.py save_state [--db=sqlite_database]
+  amity.py load_state <sqlite_database>
+  amity.py clear_room <room_name>
+  amity.py remove_room <room_name>  
+  amity.py reset
+  amity.py -h | --help
+
+Examples:
+  amity.py create_room Moon office
+  amity.py create_room Cedar living
+  amity.py add_person HASSAN OYEBOADE FELLOW N
+  amity.py add_person SUNDAY NWUGURU FELLOW Y
+  amity.py add_person PROSPER OTEMUYIWA STAFF
+  amity.py reallocate_person F3WEDS32WED obeche
+  amity.py load_people input.txt
+  amity.py print_allocations [-o=allocations.txt]
+  amity.py print_unallocated [-o=unallocated.txt]
+  amity.py save_state [--db=mydatabase.db]
+  amity.py load_state <sqlite_database>
+  amity.py clear_room cedar
+  amity.py remove_room orion
+  amity.py reset
