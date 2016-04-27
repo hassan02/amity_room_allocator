@@ -63,6 +63,8 @@ if __name__ == '__main__':
     Amity().remove_room(arguments['<room_name>'])
   elif arguments['load_people']:
     Amity().load_people(arguments['<filename>'])
+  elif arguments['save_state']:
+    Amity().save_state(arguments['--db'])
   elif arguments['reset']:
     Amity().reset()
   

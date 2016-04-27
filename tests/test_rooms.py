@@ -13,7 +13,7 @@ class TestRoom(unittest.TestCase):
     def test_new_room_class(self):
         self.assertIsInstance(self.room, Room)
     def test_new_room_name(self):
-        self.assertEqual(self.room.room_name, 'Orion')
+        self.assertEqual(self.room.name, 'Orion')
     def test_new_room_members(self):
         self.assertEqual(self.room.members, {})
     def test_new_room_occupants(self):
@@ -25,7 +25,7 @@ class TestOffice(unittest.TestCase):
     def test_new_office_class(self):
         self.assertIsInstance(self.office, Office)
     def test_new_office_name(self):
-        self.assertEqual(self.office.room_name, 'Neptune')
+        self.assertEqual(self.office.name, 'Neptune')
     def test_new_office_members(self):
         self.assertEqual(self.office.members, {})
     def test_new_office_occupants(self):
@@ -38,7 +38,7 @@ class TestLiving(unittest.TestCase):
     def test_new_living_class(self):
         self.assertIsInstance(self.living, Living)
     def test_new_living_name(self):
-        self.assertEqual(self.living.room_name, 'Iroko')
+        self.assertEqual(self.living.name, 'Iroko')
     def test_new_living_members(self):
         self.assertEqual(self.living.members, {})
     def test_new_living_occupants(self):
