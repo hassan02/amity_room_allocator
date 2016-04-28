@@ -16,13 +16,6 @@ class Amity():
         self.manager.add_person(firstname,lastname,person_type,living_choice)
         self.manager.close_file()
    
-
-    #def add_staff(self,firstname,lastname):
-     #  DataManager().close_file()
-    #def add_fellow(self,firstname,lastname):
-     #   DataManager().add_fellow(firstname,lastname)
-        #fellow = Fellow(name)
-
     def create_room(self,room_name,room_type):
         if not isinstance(room_name,str):
             raise Exception('Room name invalid. Must be a string')
@@ -40,8 +33,7 @@ class Amity():
         self.manager.save_living(living_name)
         self.manager.close_file()
     def print_allocations(self):
-        self.manager.load_offices()
-        self.manager.load_livings()
+        self.manager.load_all_rooms()
         self.manager.close_file()
     def print_unallocated(self):
         self.manager.print_unallocated()

@@ -31,7 +31,8 @@ class DataManager(object):
             print('Office %s created' % (office_name.upper()))
             
         else:
-            ErrorHandler().room_exist(office_name)
+            raise Exception('Room already error')
+            #ErrorHandler().room_exist(office_name)
         
     def save_living(self, living_name):
         self.open_file()
@@ -46,33 +47,20 @@ class DataManager(object):
         #self.living_data.close()
         # Write to the stream 
 
-    def load_offices(self):
+    def load_all_rooms(self):
         self.open_file()
-        office_output = ''
-        print('Loading All Offices...')
-        for key in self.office_data:
-            data = self.office_data[key]
-            if data.members == {}:
-                members_list = 'EMPTY'
-            else:
-                members_list = ", ".join(data.members.values())
-            data.no_of_occupants = len(data.members)
-            office_output += ('%s(OFFICE) - %d of %d\n%s\n%s%s\n\n' % (data.room_name.upper(),data.no_of_occupants, data.max_occupants, self.displayline,data.members.keys(), members_list.upper()))
+        office_output = 'Loading All Offices...\n'
+        for office, office_info in self.office_data.items():
+            members_list = ', '.join(office_info.members.values()) if office_info.members else 'EMPTY'
+            office_info.no_of_occupants = len(office_info.members)
+            office_output += ('%s(OFFICE) - %d of %d\n%s\n%s\n\n' % (office_info.room_name.upper(),office_info.no_of_occupants, office_info.max_occupants, self.displayline, members_list.upper()))
         print(office_output)
-        #self.office_data.close()
 
-    def load_livings(self):
-        self.open_file()
-        living_output = ''
-        print('Loading All Living Rooms...')
-        for key in self.living_data:
-            data = self.living_data[key]
-            if data.members == {}:
-                members_list = 'EMPTY'
-            else:
-                members_list = ", ".join(data.members.values())
-            data.no_of_occupants = len(data.members)
-            living_output += ('%s(LIVING) - %d of %d\n%s\n%s\n\n' % (data.room_name.upper(),data.no_of_occupants, data.max_occupants, self.displayline, members_list.upper()))
+        living_output = 'Loading All Living Rooms...\n'
+        for living, living_info in self.living_data.items():
+            members_list = ", ".join(living_info.members.values()) if living_info.members else 'EMPTY'
+            living_info.no_of_occupants = len(living_info.members)
+            living_output += ('%s(LIVING) - %d of %d\n%s\n%s\n\n' % (living_info.room_name.upper(), living_info.no_of_occupants, living_info.max_occupants, self.displayline, members_list.upper()))
         print(living_output)
         #self.living_data.close()
     
@@ -112,14 +100,14 @@ class DataManager(object):
         self.open_file()
         if living_choice == None:
             living_choice = 'N'
-        picked_office = self.get_available_office()
-        picked_living = self.get_available_living()
         if person_type.upper() == 'STAFF' and (living_choice.upper() == 'Y' or living_choice == 'N'):
+            picked_office = self.get_available_office()
             if picked_office != None:
                 self.add_staff_to_room(firstname,lastname,picked_office)
             else:
                 self.add_staff_to_unallocated(firstname, lastname)
         elif person_type.upper() == 'FELLOW' and living_choice.upper() == 'Y':
+            picked_living = self.get_available_living() 
             if picked_living != None:
                 self.add_fellow_to_room(firstname,lastname,picked_living)
             else:
@@ -155,7 +143,7 @@ class DataManager(object):
         self.staff_data[staff.id] = staff
 
          #self.office_data.close()
-        print('Fellow %s with ID NO: %s has been added to the system but unallocated.' %(staff.fullname, staff.id))
+        print('Staff %s with ID NO: %s has been added to the system but unallocated.' %(staff.fullname, staff.id))
 
 
     def add_fellow_to_room(self, first_name, last_name, picked_living):
