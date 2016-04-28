@@ -65,6 +65,8 @@ if __name__ == '__main__':
     Amity().load_people(arguments['<filename>'])
   elif arguments['save_state']:
     Amity().save_state(arguments['--db'])
+  elif arguments['load_state']:
+    Amity().load_state(arguments['<sqlite_database>'])
   elif arguments['reset']:
     Amity().reset()
   

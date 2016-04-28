@@ -1,20 +1,8 @@
 class Person(object):
-  def __init__(self, firstname, lastname):
-    self.setName(firstname,lastname)
-    self.fullname = self.getName().upper()
-    self.allocated = False
-    self.room = ''
-
-  
-  def getName(self):
-    return self.__firstname + ' ' + self.__lastname
-
-  def setName(self, firstname, lastname):
-    if isinstance(firstname, str):
-      self.__firstname = firstname
-      self.__lastname = lastname
-    else:
-      raise 'Invalid argument'
-
-# simon = Person('Simon Peter')
-# print simon.getName()
+    def __init__(self, first_name, last_name):
+        if isinstance(first_name, str) and isinstance(last_name, str):  
+            self.fullname = (first_name + ' ' + last_name).upper()
+            self.allocated = False
+            self.room = ''
+        else:
+            raise Exception ('Please enter a valid name')

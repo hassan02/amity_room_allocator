@@ -9,9 +9,13 @@ import shelve
 
 class Amity():
 
-    def __init__(self, office_data = 'data_files/offices', living_data = 'data_files/living', fellow_data = 'data_files/fellows', staff_data = 'data_files/staff'):
-        self.manager = DataManager(office_data, living_data, fellow_data, staff_data)
-       
+    def __init__(self, office_file = 'data_files/offices', living_file = 'data_files/living', fellow_file = 'data_files/fellows', staff_file = 'data_files/staff'):
+        self.office_file = office_file
+        self.living_file = living_file
+        self.fellow_file = fellow_file
+        self.staff_file = staff_file
+        self.manager = DataManager(self.office_file, self.living_file, self.fellow_file, self.staff_file)
+        
     def add_person(self, firstname, lastname, person_type, living_choice):
         self.manager.add_person(firstname,lastname,person_type,living_choice)
         self.manager.close_file()
@@ -54,8 +58,11 @@ class Amity():
         self.manager.load_people(filename)
         self.manager.close_file()
     def save_state(self,filename):
-         self.database_manager = DatabaseManager(filename)
-         self.database_manager.save_state()
+         self.db_manager = DatabaseManager(self.office_file, self.living_file, self.fellow_file, self.staff_file, filename)
+         self.db_manager.save_state()
+    def load_state(self,filename):
+         self.db_manager = DatabaseManager(self.office_file, self.living_file, self.fellow_file, self.staff_file, filename)
+         self.db_manager.load_state()
 
     def reset(self,room_name):
         pass
