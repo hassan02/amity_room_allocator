@@ -9,7 +9,7 @@ Usage:
   amity.py print_unallocated [-o=filename]
   amity.py print_room <room_name>
   amity.py save_state [--db=sqlite_database]
-  amity.py load_state <sqlite_database>
+  amity.py load_state [--db=sqlite_database]
   amity.py clear_room <room_name>
   amity.py remove_room <room_name>  
   amity.py reset
@@ -25,8 +25,10 @@ Examples:
   amity.py load_people input.txt
   amity.py print_allocations [-o=allocations.txt]
   amity.py print_unallocated [-o=unallocated.txt]
+  amity.py save_state
   amity.py save_state [--db=mydatabase.db]
-  amity.py load_state <sqlite_database>
+  amity.py load_state
+  amity.py load_state [--db=mydatabase.db]
   amity.py clear_room cedar
   amity.py remove_room orion
   amity.py reset
@@ -66,7 +68,7 @@ if __name__ == '__main__':
   elif arguments['save_state']:
     Amity().save_state(arguments['--db'])
   elif arguments['load_state']:
-    Amity().load_state(arguments['<sqlite_database>'])
+    Amity().load_state(arguments['--db'])
   elif arguments['reset']:
     Amity().reset()
   
