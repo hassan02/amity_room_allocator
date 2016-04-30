@@ -24,17 +24,11 @@ class Amity():
         if not isinstance(room_name,str):
             raise Exception('Room name invalid. Must be a string')
         if room_type.upper() == 'OFFICE':
-            self.create_office(room_name)
+            self.manager.save_room(room_name,room_type)
         elif room_type.upper() == 'LIVING':
-            self.create_living(room_name)
+            self.manager.save_room(room_name, room_type)
         else:
           raise Exception('Room type invalid. Must be office or living')
-        self.manager.close_file()
-    def create_office(self,office_name):
-        self.manager.save_office(office_name)
-        self.manager.close_file()
-    def create_living(self,living_name):
-        self.manager.save_living(living_name)
         self.manager.close_file()
     def print_allocations(self):
         self.manager.load_all_rooms()

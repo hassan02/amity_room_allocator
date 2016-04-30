@@ -6,7 +6,6 @@ from model.living import Living
 from model.office import Office
 from model.staff import Staff
 from model.fellow import Fellow
-from model.error_handler import ErrorHandler
 
     
 class DataManager(object):
@@ -18,24 +17,21 @@ class DataManager(object):
         self.fellow_data = shelve.open(fellows_file)
         self.staff_data = shelve.open(staffs_file)
 
-    def save_office(self, office_name):
-        if office_name.lower() not in self.office_data and office_name.lower() not in self.living_data: 
-            office = Office(office_name)
-            self.office_data[office_name.lower()] = office
-            print('Office %s created' % (office_name.upper()))
-            
-        else:
-            print('Room %s already exist' % (office_name.lower()))
-            #ErrorHandler().room_exist(office_name)
-        
-    def save_living(self, living_name):
-        if living_name.lower() not in self.living_data and living_name.lower() not in self.office_data: 
-            living = Living(living_name)
-            self.living_data[living_name.lower()] = living
-            print('Living Room %s created' % (living_name.upper()))
-           
-        else:
-            print('Room %s already exist' % (living_name))
+    def save_room(self, room_name, room_type):
+        if room_type.upper() == 'OFFICE':
+            if room_name.lower() not in self.office_data and room_name.lower() not in self.living_data: 
+                office = Office(room_name)
+                self.office_data[room_name.lower()] = office
+                print('Office %s created' % (room_name.upper()))
+            else:
+                print('Room %s already exist' % (room_name.upper()))
+        elif room_type.upper() == 'LIVING':
+            if room_name.lower() not in self.living_data and room_name.lower() not in self.office_data: 
+                living = Living(room_name)
+                self.living_data[room_name.lower()] = living
+                print('Living Room %s created' % (room_name.upper()))     
+            else:
+                print('Room %s already exist' % (room_name.upper()))
         
     def load_all_rooms(self):
         office_output = 'Loading All Offices...\n'

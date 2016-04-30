@@ -1,5 +1,3 @@
-from os import sys, path
-sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 from model.person import Person
 from model.fellow import Fellow
 from model.staff import Staff
@@ -9,23 +7,45 @@ class TestPerson(unittest.TestCase):
     person = Person('Adeola','Adedire')
 
     def test_new_person_class(self):
-        self.assertIsInstance(self.person, Person)
+        self.assertEqual(type(self.person), Person)
     def test_new_person_first_name(self):
         self.assertEqual(self.person.fullname, 'ADEOLA ADEDIRE')
+    def test_new_person_allocated(self):
+        self.assertEqual(self.person.allocated, False)
+    def test_new_person_room(self):
+        self.assertEqual(self.person.room, '')
 
-class TestFellow(unittest.TestCase):
+
+class TestFellow(TestPerson):
     fellow = Fellow('Lovelyn','Tijesunimi-Israel')
     def test_new_fellow_class(self):        
-        self.assertIsInstance(self.fellow, Fellow)
-    def test_new_fellow_first_class(self):
+        self.assertEqual(type(self.fellow), Fellow)
+    def test_new_fellow_full_name(self):
         self.assertEqual(self.fellow.fullname, 'LOVELYN TIJESUNIMI-ISRAEL')
-        
-class TestStaff(unittest.TestCase):
-    staff = Staff('IKEM','OKONKWO')
-    def test_new_fellow_class(self):        
-        self.assertIsInstance(self.staff, Staff)
-    def test_new_fellow_first_class(self):
+    def test_new_fellow_id(self):
+        self.assertTrue(self.fellow.id.startswith('F'))
+    def test_new_fellow_id_length(self):
+        self.assertEqual(len(self.fellow.id), 11)
+    def test_new_fellow_allocated(self):
+        self.assertEqual(self.fellow.allocated, False)
+    def test_new_fellow_room(self):
+        self.assertEqual(self.fellow.room, '')
+
+class TestStaff(TestPerson):
+    staff = Staff('Ikem','Okonkwo')
+    def test_new_staff_class(self):        
+        self.assertEqual(type(self.staff), Staff)
+    def test_new_staff_full_name(self):
         self.assertEqual(self.staff.fullname, 'IKEM OKONKWO')
+    def test_new_staff_id(self):
+        self.assertTrue(self.staff.id.startswith('S'))
+    def test_new_staff_id_length(self):
+        self.assertEqual(len(self.staff.id), 11)
+    def test_new_staff_allocated(self):
+        self.assertEqual(self.staff.allocated, False)
+    def test_new_staff_room(self):
+        self.assertEqual(self.staff.room, '')
+
 
 
 if __name__ == '__main__':

@@ -38,7 +38,7 @@ Examples:
 Options:
     -h, --help  Show this screen and exit.
 """
-from model.docopt import docopt
+from external.docopt import docopt
 from model.amity_model import Amity
 
 if __name__ == '__main__':
