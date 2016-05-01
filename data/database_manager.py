@@ -35,7 +35,11 @@ class DatabaseManager():
                                    VALUES ('%s',%d,'%s')" % (office_info.name, office_info.no_of_occupants, members_list)
                 self.db_cursor.execute(query)
             else:
-                print('Row already exist')
+                #members_list = ', '.join(office_info.members.values()) if office_info.members else 'EMPTY'
+                #query = "UPDATE office (room_name, no_of_occupants, members) \
+                #                   VALUES ('%s',%d,'%s')" % (office_info.name, office_info.no_of_occupants, members_list)
+                #self.db_cursor.execute(query)
+
             
         for living, living_info in self.living_data.items():
             members_list = ', '.join(living_info.members.values()) if living_info.members else 'EMPTY'

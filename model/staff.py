@@ -3,7 +3,7 @@ import random
 import string
 from person import Person 
 class Staff(Person):
-    id_list = shelve.open('data/person_ids')
+    id_list = shelve.open('data_files/person_ids')
     def __init__(self, first_name, last_name):
         super(Staff, self).__init__(first_name,last_name)
         self.id = self.get_staff_id()

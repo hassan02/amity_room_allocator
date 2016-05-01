@@ -16,7 +16,7 @@ class TestRoom(unittest.TestCase):
         self.assertEqual(self.room.members, {})
     def test_new_room_occupants(self):
         self.assertEqual(self.room.no_of_occupants, 0)
-    def test_raises_error(self):
+    def test_create_room_raises_error(self):
         self.assertRaises(Exception, Room, [1,3,4])
 
     
@@ -33,6 +33,8 @@ class TestOffice(unittest.TestCase):
         self.assertEqual(self.office.no_of_occupants, 0)
     def test_new_office_max_occupants(self):
         self.assertEqual(self.office.max_occupants, 6)
+    def test_create_office_raises_error(self):
+        self.assertRaises(Exception, Office, 5)
 
 class TestLiving(unittest.TestCase):
     living = Living('Iroko')
@@ -46,6 +48,8 @@ class TestLiving(unittest.TestCase):
         self.assertEqual(self.living.no_of_occupants, 0)
     def test_new_living_max_occupants(self):
         self.assertEqual(self.living.max_occupants, 4)
+    def test_create_living_raises_error(self):
+        self.assertRaises(Exception, Living, {'obeche':'living'})
 
 if __name__ == '__main__':
     unittest.main()
