@@ -16,7 +16,7 @@ class Amity():
         self.staff_file = staff_file
         self.manager = DataManager(self.office_file, self.living_file, self.fellow_file, self.staff_file)
         
-    def add_person(self, firstname, lastname, person_type, living_choice):
+    def add_person(self, firstname, lastname, person_type, living_choice='N'):
         self.manager.add_person(firstname,lastname,person_type,living_choice)
         self.manager.close_file()
    

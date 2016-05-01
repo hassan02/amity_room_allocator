@@ -35,6 +35,7 @@ class DatabaseManager():
                                    VALUES ('%s',%d,'%s')" % (office_info.name, office_info.no_of_occupants, members_list)
                 self.db_cursor.execute(query)
             else:
+                pass
                 #members_list = ', '.join(office_info.members.values()) if office_info.members else 'EMPTY'
                 #query = "UPDATE office (room_name, no_of_occupants, members) \
                 #                   VALUES ('%s',%d,'%s')" % (office_info.name, office_info.no_of_occupants, members_list)

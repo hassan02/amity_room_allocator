@@ -5,7 +5,6 @@ import unittest
 
 class TestPerson(unittest.TestCase):
     person = Person('Adeola','Adedire')
-
     def test_new_person_class(self):
         self.assertEqual(type(self.person), Person)
     def test_new_person_first_name(self):
@@ -33,7 +32,7 @@ class TestFellow(TestPerson):
     def test_new_fellow_room(self):
         self.assertEqual(self.fellow.room, '')
     def test_create_new_fellow_raises_error(self):
-        self.assertRaises(Exception, Person, ([3,4], 'Ade'))
+        self.assertRaises(Exception, Fellow, ([3,4], 'Ade'))
 
 
 class TestStaff(TestPerson):
@@ -51,7 +50,7 @@ class TestStaff(TestPerson):
     def test_new_staff_room(self):
         self.assertEqual(self.staff.room, '')
     def test_create_new_staffs_raises_error(self):
-        self.assertRaises(Exception, Person, ({'A':'Apple'}, 4.5677))
+        self.assertRaises(Exception, Staff, ({'A':'Apple'}, 4.5677))
 
 
 
