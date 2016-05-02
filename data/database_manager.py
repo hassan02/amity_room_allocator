@@ -28,39 +28,53 @@ class DatabaseManager():
         
         for office_name, office_info in self.office_data.items():
             self.db_cursor.execute("SELECT id FROM office WHERE room_name = '%s'" % (office_name))
-            data=self.db_cursor.fetchall()
-            if len(data) == 0:
-                members_list = ', '.join(office_info.members.values()) if office_info.members else 'EMPTY'
+            members_list = ', '.join(office_info.members.values()) if office_info.members else 'EMPTY'
+            row_exist=self.db_cursor.fetchall()
+            if len(row_exist) == 0:    
                 query = "INSERT INTO office(room_name, no_of_occupants, members) \
                                    VALUES ('%s',%d,'%s')" % (office_info.name, office_info.no_of_occupants, members_list)
-                self.db_cursor.execute(query)
-            else:
-                pass
-                #members_list = ', '.join(office_info.members.values()) if office_info.members else 'EMPTY'
-                #query = "UPDATE office (room_name, no_of_occupants, members) \
-                #                   VALUES ('%s',%d,'%s')" % (office_info.name, office_info.no_of_occupants, members_list)
-                #self.db_cursor.execute(query)
-
+            else:                
+                query = "UPDATE office SET no_of_occupants = %d, members = '%s' WHERE room_name = '%s' \
+                                    " % (office_info.no_of_occupants, members_list, office_name)
+            self.db_cursor.execute(query)
             
-        for living, living_info in self.living_data.items():
+        for living_name, living_info in self.living_data.items():
+            self.db_cursor.execute("SELECT id FROM office WHERE room_name = '%s'" % (living_name))
             members_list = ', '.join(living_info.members.values()) if living_info.members else 'EMPTY'
-            query = "INSERT INTO living(room_name, no_of_occupants, members) \
-                                   VALUES ('%s',%d,'%s')" % (living_info.name, living_info.no_of_occupants, members_list)
+            row_exist=self.db_cursor.fetchall()
+            if len(row_exist) == 0:
+                query = "INSERT INTO living(room_name, no_of_occupants, members) \
+                                       VALUES ('%s',%d,'%s')" % (living_info.name, living_info.no_of_occupants, members_list)
+            else:
+                query = "UPDATE living SET no_of_occupants = %d, members = '%s' WHERE room_name = '%s' \
+                                    " % (living_info.no_of_occupants, members_list, office_name)
             self.db_cursor.execute(query)
 
         for fellow, fellow_info in self.fellow_data.items():
-            query = "INSERT INTO fellow(fellow_id, name, is_allocated, room_name) \
-                                   VALUES ('%s','%s', '%s','%s')" % (fellow_info.id, fellow_info.fullname, str(fellow_info.allocated), fellow_info.room)
+            self.db_cursor.execute("SELECT id FROM fellow WHERE fellow_id = '%s'" % (fellow))
+            row_exist=self.db_cursor.fetchall()
+            if len(row_exist) == 0:
+                query = "INSERT INTO fellow (fellow_id, name, is_allocated, room_name) \
+                                       VALUES ('%s','%s', '%s','%s')" % (fellow_info.id, fellow_info.fullname, str(fellow_info.allocated), fellow_info.room)
+            else:                
+                query = "UPDATE fellow SET name = '%s', is_allocated = '%s', room_name = '%s'  WHERE fellow_id = '%s' \
+                                    " % (fellow_info.fullname, str(fellow_info.allocated), fellow_info.room, fellow_info.id)
             self.db_cursor.execute(query)
         
         for staff, staff_info in self.staff_data.items():
-            query = "INSERT INTO staff(staff_id, name, is_allocated, room_name) \
-                                   VALUES ('%s','%s', '%s','%s')" % (staff_info.id, staff_info.fullname, str(staff_info.allocated), staff_info.room)
+            self.db_cursor.execute("SELECT id FROM staff WHERE staff_id = '%s'" % (staff))
+            row_exist=self.db_cursor.fetchall()
+            if len(row_exist) == 0:
+                query = "INSERT INTO staff (staff_id, name, is_allocated, room_name) \
+                                       VALUES ('%s','%s', '%s','%s')" % (staff_info.id, staff_info.fullname, str(staff_info.allocated), staff_info.room)
+            else:                
+                query = "UPDATE fellow SET name = '%s', is_allocated = '%s', room_name = '%s'  WHERE fellow_id = '%s' \
+                                    " % (staff_info.fullname, str(staff_info.allocated), staff_info.room, staff_info.id)
             self.db_cursor.execute(query)
         
         self.db_conn.commit()
         self.db_conn.close()
-        print('All info saved')
+        print('All information successfully saved to database')
 
     def load_state(self):
       officequery = "SELECT * FROM office"

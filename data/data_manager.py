@@ -58,11 +58,10 @@ class DataManager(object):
             if available_offices != []:
                 avail_office = available_offices[random.randint(0,len(available_offices)-1)]
                 return avail_office
-                self.office_data.close()
             else:
-                raise Exception('No available office')
+                return None
         else:
-            raise Exception('No office exist')
+            return None
 
     def get_available_living(self):
         available_livings = []
@@ -75,9 +74,9 @@ class DataManager(object):
                 return avail_living
                 #self.living_data.close()
             else:
-                raise Exception('No available living')
+                return None
         else:
-            raise Exception('No living space exist')
+            return None
 
     def add_person(self, firstname, lastname, person_type, living_choice):
         if living_choice == None:
@@ -313,13 +312,11 @@ class DataManager(object):
     def print_unallocated(self):
         unallocated_list = ''
         print('Loading all unallocated people...')
-        for key in self.fellow_data:
-            fellow_data = self.fellow_data[key]
+        for staff,fellow_data in self.fellow_data.items():
             if fellow_data.allocated == False:
                 unallocated_list += fellow_data.fullname + ' (FELLOW)' + '\n'
         
-        for key in self.staff_data:
-            staff_data = self.staff_data[key]
+        for staff, staff_data in self.staff_data.items():
             if staff_data.allocated == False:
                 unallocated_list += staff_data.fullname + ' (STAFF)' + '\n'
         
