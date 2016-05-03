@@ -4,7 +4,6 @@ import shelve
 import unittest
 import sqlite3
 
-from data.data_manager import DataManager
 from model.amity_model import Amity
 from model.office import Office
 from model.living import Living
@@ -26,13 +25,13 @@ class TestAllocation(unittest.TestCase):
         os.remove(os.path.realpath("tests/test_data_files/test_staff.db"))
     
     def setUp(self):
-      self.held, sys.stdout = sys.stdout, StringIO()
+      self.held = sys.stdout
+      sys.stdout = StringIO()
       self.test_office_file = 'tests/test_data_files/test_offices'
       self.test_living_file = 'tests/test_data_files/test_living'
       self.test_fellow_file = 'tests/test_data_files/test_fellows'
       self.test_staff_file = 'tests/test_data_files/test_staff'
       
-      #self.clear_files()
       self.amity = Amity(self.test_office_file, self.test_living_file, self.test_fellow_file, self.test_staff_file)
       
       self.office_data = shelve.open(self.test_office_file)
