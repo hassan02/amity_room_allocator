@@ -115,14 +115,9 @@ class TestDatabase(unittest.TestCase):
     def test_10_check_if_fellow_in_living(self):
         self.assertTrue('ADEOLA ADEDOYIN' in self.living_data['iroko'].members.values())
 
-    #def test_11_check_if_fellow_in_living(self):
-    #    self.assertTrue('SUNDAY NWUGURU' in self.living_data['cedar'].members.values())
-
     def test_12_check_if_staff_in_office(self):
         self.assertTrue('GODSON UKPERE' in self.office_data['neptune'].members.values())
 
-    #def test_13_check_if_staff_in_office(self):
-    #    self.assertTrue('SAYO ALAGBE' in self.office_data['saturn'].members.values())
 
     
 if __name__ == '__main__':

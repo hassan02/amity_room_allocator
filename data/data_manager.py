@@ -52,47 +52,27 @@ class DataManager(object):
             living_output += ('%s(LIVING) - %d of %d\n%s\n%s\n\n' % (living_info.name.upper(), living_info.no_of_occupants, living_info.max_occupants, self.displayline, members_list.upper()))
         print(living_output)
     
-    def get_available_office(self):
-        # Get all available offices
-        available_offices = []
-        if self.office_data != {}:
-            for key in self.office_data:
-                if self.office_data[key].no_of_occupants < self.office_data[key].max_occupants:
-                    available_offices.append(key)
-            if available_offices != []:
-                avail_office = available_offices[random.randint(0,len(available_offices)-1)]
-                return avail_office
+    def get_available_room(self, room_type):
+        if room_type.upper() == 'LIVING' or room_type.upper() == 'OFFICE':
+            rooms_data = self.living_data if room_type.upper() == 'LIVING' else self.office_data
+        
+            if rooms_data != {}:
+                avail_rooms = [room for room, room_info in rooms_data.items() if room_info.no_of_occupants < room_info.max_occupants]        
+                return avail_rooms[random.randint(0,len(avail_rooms)-1)] if avail_rooms else None
             else:
                 return None
-        else:
-            return None
-
-    def get_available_living(self):
-        # Get all available living spaces
-        available_livings = []
-        if self.living_data != {}:
-            for key in self.living_data:
-                if self.living_data[key].no_of_occupants < self.living_data[key].max_occupants:
-                    available_livings.append(key)
-            if available_livings != []:
-                avail_living = available_livings[random.randint(0,len(available_livings)-1)]
-                return avail_living
-            else:
-                return None
-        else:
-            return None
-
+    
     def add_person(self, firstname, lastname, person_type, living_choice = 'N'):
         if not living_choice:
             living_choice = 'N'
-        if person_type.upper() == 'STAFF' and (living_choice.upper() == 'Y' or living_choice == 'N'):
-            picked_office = self.get_available_office()
+        if person_type.upper() == 'STAFF' and (living_choice.upper() == 'Y' or living_choice.upper() == 'N'):
+            picked_office = self.get_available_room('OFFICE')
             if picked_office != None:
                 self.add_person_to_room(firstname,lastname, 'STAFF', picked_office)
             else:
                 self.add_person_to_unallocated(firstname, lastname, 'STAFF')
         elif person_type.upper() == 'FELLOW' and living_choice.upper() == 'Y':
-            picked_living = self.get_available_living() 
+            picked_living = self.get_available_room('LIVING') 
             if picked_living != None:
                 self.add_person_to_room(firstname,lastname, 'FELLOW', picked_living)
             else:
@@ -105,34 +85,28 @@ class DataManager(object):
 
 
     def add_person_to_room(self,first_name, last_name, person_type, picked_room):
-        #Save to room
+        # Check for person_type Fellow or Staff
         if person_type.upper() == 'STAFF':
-            staff = Staff(first_name,last_name)  # Create a staff object
-            office_info = self.office_data[picked_room]
-            office_info.members[staff.id] = staff.fullname
-            office_info.no_of_occupants = len(office_info.members)
-            self.office_data[picked_room] = office_info
-
-            #Save to staffs_data
-            staff.allocated = True
-            staff.room = picked_room
-            self.staff_data[staff.id] = staff
-            print('Staff %s with ID NO: %s added to %s' %(staff.fullname, staff.id, picked_room.upper()))
-        
+            room_info = self.office_data[picked_room]
+            person = Staff(first_name, last_name)
         elif person_type.upper() == 'FELLOW':
-            fellow = Fellow(first_name,last_name)  # Create a Fellow object
-            living_info = self.living_data[picked_room]
-            living_info.members[fellow.id] = fellow.fullname
-            living_info.no_of_occupants = len(living_info.members)
-            self.living_data[picked_room] = living_info
-            
-            #Save to fellows_data
-            fellow.allocated = True
-            fellow.room = picked_room
-            self.fellow_data[fellow.id] = fellow
+            room_info = self.living_data[picked_room]
+            person = Fellow(first_name, last_name)
 
-            print('Fellow %s with ID NO: %s added to %s' %(fellow.fullname, fellow.id, picked_room.upper()))
+        room_info.members[person.id] = person.fullname
+        room_info.no_of_occupants = len(room_info.members)
+        person.allocated = True  # Set allocated property as true
+        person.room = picked_room  # Set person room as picked room
 
+        if person_type.upper() == 'STAFF':
+            self.office_data[picked_room] = room_info
+            self.staff_data[person.id] = person
+            print('Staff %s with ID NO: %s added to %s' %(person.fullname, person.id, picked_room.upper()))
+        elif person_type.upper() == 'FELLOW':
+            self.living_data[picked_room] = room_info
+            self.fellow_data[person.id] = person
+            print('Fellow %s with ID NO: %s added to %s' %(person.fullname, person.id, picked_room.upper()))
+        
     def add_person_to_unallocated(self, first_name, last_name, person_type):
         # Add person to list of allocated
         if person_type.upper() == 'STAFF':  # Check if person is staff
