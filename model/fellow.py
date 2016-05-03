@@ -17,7 +17,3 @@ class Fellow(Person):
         else:
             person_id_list.append(fellow_id)
         return fellow_id
-        
-
-#print simon.getName()
-#print type(simon)

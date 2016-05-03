@@ -20,7 +20,7 @@ class Amity():
         self.manager.add_person(firstname,lastname,person_type,living_choice)
         self.manager.close_file()
    
-    def create_room(self, room_name ,room_type):
+    def create_room(self, room_name, room_type):
         if not isinstance(room_name,str):
             raise Exception('Room name invalid. Must be a string')
         if room_type.upper() == 'OFFICE':
@@ -36,27 +36,20 @@ class Amity():
     def print_unallocated(self):
         self.manager.print_unallocated()
         self.manager.close_file()
-    def print_room(self,room_name):
+    def print_room(self, room_name):
         self.manager.print_room(room_name)
         self.manager.close_file()
-    def reallocate_person(self,person_id,new_room_name):
+    def reallocate_person(self, person_id, new_room_name):
         self.manager.reallocate_person(person_id, new_room_name)
         self.manager.close_file()
-    #def clear_room(self, room_name):
-    #    self.manager.clear_room(room_name)
-    #    self.manager.close_file()
-    def remove_room(self,room_name):
-        self.manager.remove_room(room_name)
-        self.manager.close_file()
-    def load_people(self,filename):
+    def load_people(self, filename):
         self.manager.load_people(filename)
         self.manager.close_file()
-    def save_state(self,filename):
-         self.db_manager = DatabaseManager(self.office_file, self.living_file, self.fellow_file, self.staff_file, filename)
-         self.db_manager.save_state()
-    def load_state(self,filename):
-         self.db_manager = DatabaseManager(self.office_file, self.living_file, self.fellow_file, self.staff_file, filename)
-         self.db_manager.load_state()
-
-    #def reset(self,room_name):
-    #    pass
+    def save_state(self, filename):
+        self.db_manager = DatabaseManager(self.office_file, self.living_file, self.fellow_file, self.staff_file, filename)
+        self.db_manager.save_state()
+        self.db_manager.close_file()
+    def load_state(self, filename):
+        self.db_manager = DatabaseManager(self.office_file, self.living_file, self.fellow_file, self.staff_file, filename)
+        self.db_manager.load_state()
+        self.db_manager.close_file()

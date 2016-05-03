@@ -10,10 +10,10 @@ from model.office import Office
 from model.living import Living
 from cStringIO import StringIO # or from StringIO ...
 
-class TestAllocation(unittest.TestCase):
+class TestDatabase(unittest.TestCase):
     
     @classmethod
-    def setUpClass(TestAllocation):
+    def setUpClass(TestCreateRoom):
       if os.path.isfile(os.path.realpath('tests/test_data_files/test_persons_ids.db')):
         os.remove(os.path.realpath('tests/test_data_files/test_persons_ids.db'))
       if os.path.isfile(os.path.realpath('tests/test_data_files/test_offices.db')):

@@ -10,7 +10,7 @@ class TestPerson(unittest.TestCase):
     def test_new_person_first_name(self):
         self.assertEqual(self.person.fullname, 'ADEOLA ADEDIRE')
     def test_new_person_allocated(self):
-        self.assertEqual(self.person.allocated, False)
+        self.assertEqual(self.person.allocated, 'False')
     def test_new_person_room(self):
         self.assertEqual(self.person.room, '')
     def test_create_new_person_raises_error(self):
@@ -28,7 +28,7 @@ class TestFellow(TestPerson):
     def test_new_fellow_id_length(self):
         self.assertEqual(len(self.fellow.id), 11)
     def test_new_fellow_allocated(self):
-        self.assertEqual(self.fellow.allocated, False)
+        self.assertEqual(self.fellow.allocated, 'False')
     def test_new_fellow_room(self):
         self.assertEqual(self.fellow.room, '')
     def test_create_new_fellow_raises_error(self):
@@ -46,7 +46,7 @@ class TestStaff(TestPerson):
     def test_new_staff_id_length(self):
         self.assertEqual(len(self.staff.id), 11)
     def test_new_staff_allocated(self):
-        self.assertEqual(self.staff.allocated, False)
+        self.assertEqual(self.staff.allocated, 'False')
     def test_new_staff_room(self):
         self.assertEqual(self.staff.room, '')
     def test_create_new_staffs_raises_error(self):

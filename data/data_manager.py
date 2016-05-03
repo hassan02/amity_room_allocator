@@ -18,6 +18,7 @@ class DataManager(object):
         self.staff_data = shelve.open(staffs_file)
 
     def save_room(self, room_name, room_type):
+        # Save room into data based on room type
         if room_type.upper() == 'OFFICE':
             if room_name.lower() not in self.office_data and room_name.lower() not in self.living_data: 
                 office = Office(room_name)
@@ -34,6 +35,7 @@ class DataManager(object):
                 print('Room %s already exist' % (room_name.upper()))
         
     def load_all_rooms(self):
+        # Load all offices from data
         office_output = 'Loading All Offices...\n'
         for office, office_info in self.office_data.items():
             members_list = ', '.join(office_info.members.values()) if office_info.members else 'EMPTY'
@@ -41,15 +43,16 @@ class DataManager(object):
             office_output += ('%s(OFFICE) - %d of %d\n%s\n%s\n\n' % (office_info.name.upper(),office_info.no_of_occupants, office_info.max_occupants, self.displayline, members_list.upper()))
         print(office_output)
 
+        # Load all living rooms from data
         living_output = 'Loading All Living Rooms...\n'
         for living, living_info in self.living_data.items():
             members_list = ", ".join(living_info.members.values()) if living_info.members else 'EMPTY'
             living_info.no_of_occupants = len(living_info.members)
             living_output += ('%s(LIVING) - %d of %d\n%s\n%s\n\n' % (living_info.name.upper(), living_info.no_of_occupants, living_info.max_occupants, self.displayline, members_list.upper()))
         print(living_output)
-        #self.living_data.close()
     
     def get_available_office(self):
+        # Get all available offices
         available_offices = []
         if self.office_data != {}:
             for key in self.office_data:
@@ -64,6 +67,7 @@ class DataManager(object):
             return None
 
     def get_available_living(self):
+        # Get all available living spaces
         available_livings = []
         if self.living_data != {}:
             for key in self.living_data:
@@ -72,7 +76,6 @@ class DataManager(object):
             if available_livings != []:
                 avail_living = available_livings[random.randint(0,len(available_livings)-1)]
                 return avail_living
-                #self.living_data.close()
             else:
                 return None
         else:
@@ -113,17 +116,16 @@ class DataManager(object):
             staff.allocated = True
             staff.room = picked_room
             self.staff_data[staff.id] = staff
-
-            #self.office_data.close()
             print('Staff %s with ID NO: %s added to %s' %(staff.fullname, staff.id, picked_room.upper()))
+        
         elif person_type.upper() == 'FELLOW':
-            fellow = Fellow(first_name,last_name)
+            fellow = Fellow(first_name,last_name)  # Create a Fellow object
             living_info = self.living_data[picked_room]
             living_info.members[fellow.id] = fellow.fullname
             living_info.no_of_occupants = len(living_info.members)
             self.living_data[picked_room] = living_info
-            #self.living_data.close()
             
+            #Save to fellows_data
             fellow.allocated = True
             fellow.room = picked_room
             self.fellow_data[fellow.id] = fellow
@@ -131,18 +133,16 @@ class DataManager(object):
             print('Fellow %s with ID NO: %s added to %s' %(fellow.fullname, fellow.id, picked_room.upper()))
 
     def add_person_to_unallocated(self, first_name, last_name, person_type):
-        if person_type.upper() == 'STAFF':
+        # Add person to list of allocated
+        if person_type.upper() == 'STAFF':  # Check if person is staff
             staff = Staff(first_name,last_name)
             self.staff_data[staff.id] = staff
             print('Staff %s with ID NO: %s has been added to the system but unallocated.' %(staff.fullname, staff.id))
-        elif person_type.upper() == 'FELLOW':
+        elif person_type.upper() == 'FELLOW':  # Check if person is fellow
             fellow = Fellow(first_name,last_name)
             self.fellow_data[fellow.id] = fellow
-        #self.living_data.close()
             print('Fellow %s with ID NO: %s has been added to the system but unallocated.' %(fellow.fullname, fellow.id))
 
-         #self.office_data.close()    
-    
     def print_room(self,room_name):
         room_name = room_name.lower()
         if room_name in self.living_data:  # Print room members if room is a living room
@@ -151,7 +151,7 @@ class DataManager(object):
             members_list = ", ".join(living_info.members.values()) if living_info.members else 'EMPTY'
             living_info.no_of_occupants = len(living_info.members)
             print('%s(LIVING) - %d of %d\n%s\n%s\n\n' % (living_info.name.upper(),living_info.no_of_occupants, living_info.max_occupants, self.displayline, members_list.upper()))
-            #self.living_data.close()
+
         elif room_name in self.office_data:  # Print room members if room is an office
             print('Loading %s (OFFICE) members...'% (room_name.upper()))
             office_info = self.office_data[room_name]
@@ -159,7 +159,6 @@ class DataManager(object):
             office_info.no_of_occupants = len(office_info.members)
             print('%s(OFFICE) - %d of %d\n%s\n%s\n\n' % (office_info.name.upper(),office_info.no_of_occupants, office_info.max_occupants, self.displayline, members_list.upper()))
         
-            #self.office_data.close()
         else:
             raise Exception('Error. Room does not exist')  # Throw an exception    
 
@@ -182,7 +181,7 @@ class DataManager(object):
                 if person_id in living_info.members:
                     return living_info.members[person_id]
                     break       
-        #self.living_data.close()    
+
         elif person_type.upper() == 'STAFF':
             for office, office_info in self.office_data.items():
                 if person_id in office_info.members:
@@ -251,47 +250,10 @@ class DataManager(object):
                 print('Staff ID: %s does not exist'% (person_id))
         else:
             print('STAFF %s with ID: %s is already in %s' %(staff_name, person_id, new_room_name.upper()))
-        #self.office_data.close()
-    '''
-    def clear_room(self, room_name):
-        room_name = room_name.lower()
-        if room_name in self.living_data:
-            choice = raw_input('Are you sure you want to clear %s. Enter yes to continue or any other text to exit: '%(room_name.upper()))
-            if choice.lower() == 'yes':
-                data = self.living_data[room_name]
-                data.members.clear()
-                data.no_of_occupants = len(data.members)
-                self.living_data[room_name] = data 
-                print('Living room %s has been cleared'%(room_name.upper()))
-        elif room_name in self.office_data:
-            choice = raw_input('Are you sure you want to clear %s. Enter yes to continue or any other text to exit: '%(room_name.upper()))
-            if choice.lower() == 'yes':
-                data = self.office_data[room_name]
-                data.members.clear()
-                data.no_of_occupants = len(data.members)
-                self.office_data[room_name] = data
-                print('Office %s has been cleared'%(room_name.upper()))
-        else:
-            ErrorHandler().room_not_exist(room_name)  
-    def remove_room(self, room_name):
-        room_name = room_name.lower()
-        if room_name in self.living_data:
-            #choice = raw_input('Are you sure you want to remove %s. Enter yes to continue or any other text to exit: '%(room_name.upper()))
-            #if choice.lower() == 'yes':
-                del self.living_data[room_name]
-                print('Living room %s has been removed'%(room_name.upper()))
-                #self.living_data.close()
-        elif room_name in self.office_data:
-            #choice = raw_input('Are you sure you want to remove %s. Enter yes to continue or any other text to exit: '%(room_name.upper()))
-            #if choice.lower() == 'yes':
-                del self.office_data[room_name]
-                print('Office %s has been removed'%(room_name.upper()))
-                #self.office_data.close()
-        else:
-            raise Exception('Room %s does not exist '% (room_name.upper()))
-    '''
+    
     def load_people(self, filename):
-        if path.isfile(filename):
+    # Load people from file into data 
+        if path.isfile(filename):  #Check if file exist
             with open(filename,'r') as openfile:
                 for line in openfile:
                     argument = " ".join(line.split()).strip()
@@ -307,17 +269,17 @@ class DataManager(object):
                             living_choice = 'N'
                     self.add_person(first_name,last_name,person_role,living_choice)
         else:
-            ErrorHandler().cannot_locate_file()
+            raise Exception('Cannot locate file')  # Raise exception if file does not exist
 
     def print_unallocated(self):
         unallocated_list = ''
         print('Loading all unallocated people...')
-        for staff,fellow_data in self.fellow_data.items():
-            if fellow_data.allocated == False:
+        for staff, fellow_data in self.fellow_data.items():
+            if str(fellow_data.allocated) == 'False':
                 unallocated_list += fellow_data.fullname + ' (FELLOW)' + '\n'
         
         for staff, staff_data in self.staff_data.items():
-            if staff_data.allocated == False:
+            if str(staff_data.allocated) == 'False':
                 unallocated_list += staff_data.fullname + ' (STAFF)' + '\n'
         
         print(unallocated_list)
