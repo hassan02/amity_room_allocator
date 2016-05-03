@@ -116,10 +116,6 @@ class TestAllocation(unittest.TestCase):
     def test_20_living_max_occupants(self):
       self.assertEqual(self.living_data['iroko'].max_occupants, 4)
 
-    #def test_create_same_living(self):
-    #  self.amity.create_room('Iroko','living')
-    #  self.assertEqual(sys.stdout.getvalue(), 'Room IROKO already exist\n')
-
     def test_21_create_living_wrong_type_raises_error(self):
       self.assertRaises(Exception, self.amity.create_room, ['Mahogany'],'living')
 
@@ -128,77 +124,126 @@ class TestAllocation(unittest.TestCase):
       displayline = '..............................................................................'
       self.assertEqual(sys.stdout.getvalue(), 'Loading IROKO (LIVING) members...\nIROKO(LIVING) - 0 of 4\n%s\nEMPTY\n\n\n'%(displayline))
 
-    def test_23_reallocate_wrong_id_raises_error(self):
+    def test_23_print_all_room(self):
+      self.amity.print_allocations()
+      displayline = '..............................................................................'
+      output = 'Loading All Offices...\nNEPTUNE(OFFICE) - 0 of 6\n%s\nEMPTY\n\n\n'%(displayline)
+      output += 'Loading All Living Rooms...\nIROKO(LIVING) - 0 of 4\n%s\nEMPTY\n\n\n'%(displayline)
+      self.assertEqual(sys.stdout.getvalue(), output)
+
+    def test_24_reallocate_wrong_id_raises_error(self):
       self.assertRaises(Exception, self.amity.reallocate_person, 'ABDCQ','iroko')
 
-    def test_24_add_fellow(self):
+    def test_25_add_fellow(self):
       self.amity.add_person('Adeola','Adedoyin','fellow','y')
     
-    def test_25_allocate_fellow(self):
+    def test_26_allocate_fellow(self):
       self.amity.print_room('iroko')
       displayline = '..............................................................................'
       self.assertEqual(sys.stdout.getvalue(), 'Loading IROKO (LIVING) members...\nIROKO(LIVING) - 1 of 4\n%s\nADEOLA ADEDOYIN\n\n\n'%(displayline))
 
-    def test_26_unallocated(self):
+    def test_27_unallocated(self):
       self.amity.add_person('Adedoyin', 'Israel', 'fellow')      
       
-    def test_27_print_unallocated(self):
+    def test_28_print_unallocated(self):
       self.amity.print_unallocated()
       expectedoutput = 'Loading all unallocated people...\nADEDOYIN ISRAEL (FELLOW)\nBOLADE ALAWODE (STAFF)'
       expectedoutput += '\nSAMUEL AKINTOLA (FELLOW)\n\n'
       self.assertEqual(''.join(sorted(sys.stdout.getvalue())), ''.join(sorted(expectedoutput)))
 
-    def test_28_add_staff(self):
+    def test_29_add_staff(self):
       self.amity.add_person('Bukola','Makinwa','staff')
     
-    def test_29_allocate_staff(self):
+    def test_30_allocate_staff(self):
       self.amity.print_room('neptune')
       displayline = '..............................................................................'
       self.assertEqual(sys.stdout.getvalue(), 'Loading NEPTUNE (OFFICE) members...\nNEPTUNE(OFFICE) - 1 of 6\n%s\nBUKOLA MAKINWA\n\n\n'%(displayline))
     
-    def test_30_allocate_another_staff(self):
-      self.amity.add_person('Ikem','Okonkwo','staff')
     def test_31_allocate_another_staff(self):
-      self.amity.add_person('Temilade','Ojuade','staff')
+      self.amity.add_person('Ikem','Okonkwo','staff')
+    
     def test_32_allocate_another_staff(self):
-      self.amity.add_person('Nadayar','Engesi','staff')
+      self.amity.add_person('Temilade','Ojuade','staff')
+    
     def test_33_allocate_another_staff(self):
-      self.amity.add_person('Godson','Ukpere','staff')
+      self.amity.add_person('Nadayar','Engesi','staff')
+    
     def test_34_allocate_another_staff(self):
-      self.amity.add_person('Sayo','Alagbe','staff')
+      self.amity.add_person('Godson','Ukpere','staff')
+    
     def test_35_allocate_another_staff(self):
-      self.amity.add_person('Derin','Otegbola','staff')
+      self.amity.add_person('Sayo','Alagbe','staff')
+    
     def test_36_allocate_another_staff(self):
+      self.amity.add_person('Derin','Otegbola','staff')
+    
+    def test_37_allocate_another_staff(self):
       self.amity.print_unallocated()
       expectedoutput = 'Loading all unallocated people...\nADEDOYIN ISRAEL (FELLOW)\nBOLADE ALAWODE (STAFF)'
       expectedoutput += '\nSAMUEL AKINTOLA (FELLOW)\nDERIN OTEGBOLA (STAFF)\n\n'
       self.assertEqual(''.join(sorted(sys.stdout.getvalue())), ''.join(sorted(expectedoutput)))
-    def test_37_allocate_another_fellow(self):
-      self.amity.add_person('Sunday','Nwuguru','fellow','y')
+    
     def test_38_allocate_another_fellow(self):
-      self.amity.add_person('Chukwuerika','Dike','fellow','y')
+      self.amity.add_person('Sunday','Nwuguru','fellow','y')
+    
     def test_39_allocate_another_fellow(self):
-      self.amity.add_person('Stephen','Oduntan','fellow','y')
+      self.amity.add_person('Chukwuerika','Dike','fellow','y')
+    
     def test_40_allocate_another_fellow(self):
-      self.amity.add_person('Lovelyn','Tijesunimi-Israel','fellow','y')
+      self.amity.add_person('Stephen','Oduntan','fellow','y')
+    
     def test_41_allocate_another_fellow(self):
+      self.amity.add_person('Lovelyn','Tijesunimi-Israel','fellow','y')
+    
+    def test_42_allocate_another_fellow(self):
       self.amity.print_unallocated()
-    def test_42_allocate_person_raises_error(self):
+    
+    def test_43_allocate_person_raises_error(self):
       self.assertRaises(Exception, self.amity.add_person, 'Adeolu','Akinade','office')
-    def test_43_get_valid_staff_id(self):
-      ids = [staff_id for staff_id, staff_name in self.office_data['neptune'].members.items() if staff_name.upper() == 'SAYO ALAGBE']
-      self.valid_staff_id = ids[0]
-    #def test_44_create_new_room(self):
-    #  self.amity.create_room('saturn','office')  # Create a new office saturn
-    #def test_45_reallocate_person(self):
-    #  self.amity.reallocate_person(self.valid_staff_id, 'saturn')
-    #def test_46_reallocate_person(self):
-    #  self.assertTrue(self.valid_staff_id in self.office_data['saturn'].members)
-    #def test_46_reallocate_person(self):
-    #  self.assertTrue(self.valid_staff_id in self.office_data['neptune'].members)
-  
-    def test_47_load_people(self):
+    
+    def test_44_get_valid_staff_id(self):
+      ids = [staff_id for staff_id, staff_info in self.staff_data.items() if staff_info.fullname.upper() == 'SAYO ALAGBE']
+      return ids[0]
+    def test_45_create_new_office(self):
+      self.amity.create_room('saturn','office')
+
+    def test_46_reallocate_staff(self):
+      staff_id = self.test_44_get_valid_staff_id()
+      self.amity.reallocate_person(staff_id, 'saturn')
+      
+    def test_47_test_reallocate_staff(self):
+      staff_id = self.test_44_get_valid_staff_id()
+      self.assertTrue(staff_id in self.office_data['saturn'].members)
+    
+    def test_48_get_valid_fellow_id(self):
+      ids = [fellow_id for fellow_id, fellow_info in self.fellow_data.items() if fellow_info.fullname.upper() == 'SUNDAY NWUGURU']
+      return ids[0]
+    
+    def test_49_create_new_living(self):
+      self.amity.create_room('cedar','living')
+
+    def test_50_reallocate_fellow(self):
+      fellow_id = self.test_48_get_valid_fellow_id()
+      self.amity.reallocate_person(fellow_id, 'cedar')
+      
+    def test_51_reallocate_person(self):
+      fellow_id = self.test_48_get_valid_fellow_id()
+      self.assertTrue(fellow_id in self.living_data['cedar'].members)
+
+    def test_52_load_people(self):
+      self.amity.load_people("tests/test_data_files/test_input.txt")
+      self.assertTrue('EBUN OMONI' in self.office_data['neptune'].members.values() or 'EBUN OMONI' in self.office_data['saturn'].members.values())
+
+    def test_53_load_people(self):
+      self.amity.load_people("tests/test_data_files/test_input.txt")
+      self.assertTrue('MAYOWA FALADE' in self.living_data['iroko'].members.values() or 'MAYOWA FALADE' in self.living_data['cedar'].members.values())
+
+    def test_54_load_people_raises_error(self):
       self.assertRaises(Exception, self.amity.load_people, 'no_file.txt')
+    
+    def test_60_print_room_raises_error(self):
+      self.assertRaises(Exception, self.amity.print_room, 'no_room')
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)
     

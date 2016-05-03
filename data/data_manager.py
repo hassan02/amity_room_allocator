@@ -1,3 +1,4 @@
+import os
 import random
 import shelve
 import string
@@ -81,8 +82,8 @@ class DataManager(object):
         else:
             return None
 
-    def add_person(self, firstname, lastname, person_type, living_choice):
-        if living_choice == None:
+    def add_person(self, firstname, lastname, person_type, living_choice = 'N'):
+        if not living_choice:
             living_choice = 'N'
         if person_type.upper() == 'STAFF' and (living_choice.upper() == 'Y' or living_choice == 'N'):
             picked_office = self.get_available_office()
@@ -253,7 +254,7 @@ class DataManager(object):
     
     def load_people(self, filename):
     # Load people from file into data 
-        if path.isfile(filename):  #Check if file exist
+        if os.path.isfile(filename):  #Check if file exist
             with open(filename,'r') as openfile:
                 for line in openfile:
                     argument = " ".join(line.split()).strip()

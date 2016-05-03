@@ -14,7 +14,7 @@ class TestPerson(unittest.TestCase):
     def test_new_person_room(self):
         self.assertEqual(self.person.room, '')
     def test_create_new_person_raises_error(self):
-        self.assertRaises(Exception, Person, (9, 'Ade'))
+        self.assertRaises(Exception, Person, 9, 'Ade')
 
 
 class TestFellow(TestPerson):
@@ -32,7 +32,7 @@ class TestFellow(TestPerson):
     def test_new_fellow_room(self):
         self.assertEqual(self.fellow.room, '')
     def test_create_new_fellow_raises_error(self):
-        self.assertRaises(Exception, Fellow, ([3,4], 'Ade'))
+        self.assertRaises(Exception, Fellow, [3,4], 'Ade')
 
 
 class TestStaff(TestPerson):
@@ -50,7 +50,7 @@ class TestStaff(TestPerson):
     def test_new_staff_room(self):
         self.assertEqual(self.staff.room, '')
     def test_create_new_staffs_raises_error(self):
-        self.assertRaises(Exception, Staff, ({'A':'Apple'}, 4.5677))
+        self.assertRaises(Exception, Staff, {'A':'Apple'}, 4.5677)
 
 
 
