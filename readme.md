@@ -1,3 +1,4 @@
+```
 # amity_model
 
 Amity has rooms which can be offices or living spaces. An office can occupy a maximum of 6 people. A living space can inhabit a maximum of 4 people.
@@ -38,9 +39,7 @@ Usage:
   amity.py print_unallocated [-o=filename]
   amity.py print_room <room_name>
   amity.py save_state [--db=sqlite_database]
-  amity.py load_state <sqlite_database>
-  amity.py clear_room <room_name>
-  amity.py remove_room <room_name>  
+  amity.py load_state [--db=sqlite_database]
   amity.py reset
   amity.py -h | --help
 
@@ -54,8 +53,10 @@ Examples:
   amity.py load_people input.txt
   amity.py print_allocations [-o=allocations.txt]
   amity.py print_unallocated [-o=unallocated.txt]
+  amity.py save_state
   amity.py save_state [--db=mydatabase.db]
-  amity.py load_state <sqlite_database>
-  amity.py clear_room cedar
-  amity.py remove_room orion
+  amity.py load_state 
+  amity.py load_state [--db=mydatabase.db]
   amity.py reset
+
+  ```
