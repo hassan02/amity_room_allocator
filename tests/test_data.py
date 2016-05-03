@@ -200,51 +200,103 @@ class TestAllocation(unittest.TestCase):
     
     def test_43_allocate_person_raises_error(self):
       self.assertRaises(Exception, self.amity.add_person, 'Adeolu','Akinade','office')
-    
-    def test_44_get_valid_staff_id(self):
-      ids = [staff_id for staff_id, staff_info in self.staff_data.items() if staff_info.fullname.upper() == 'SAYO ALAGBE']
-      return ids[0]
-    def test_45_create_new_office(self):
+        
+    def test_44_create_new_office(self):
       self.amity.create_room('saturn','office')
 
-    def test_46_reallocate_staff(self):
-      staff_id = self.test_44_get_valid_staff_id()
-      self.amity.reallocate_person(staff_id, 'saturn')
-      
-    def test_47_test_reallocate_staff(self):
-      staff_id = self.test_44_get_valid_staff_id()
-      self.assertTrue(staff_id in self.office_data['saturn'].members)
-    
-    def test_48_get_valid_fellow_id(self):
-      ids = [fellow_id for fellow_id, fellow_info in self.fellow_data.items() if fellow_info.fullname.upper() == 'SUNDAY NWUGURU']
+    def test_45_add_new_staff(self):
+      self.amity.add_person('Seni', 'Sulaimon', 'staff')
+
+    def test_46_get_valid_staff_id(self):
+      ids = [staff_id for staff_id, staff_info in self.staff_data.items() if staff_info.fullname.upper() == 'SENI SULAIMON']
+      return ids[0]
+
+    def test_47_test_reallocate_to_full_room(self):
+      staff_id = self.test_46_get_valid_staff_id()
+      self.amity.reallocate_person(staff_id, 'neptune')
+      self.assertEqual(sys.stdout.getvalue(), 'Room NEPTUNE is full.\n')
+
+    def test_48_test_reallocate_to_non_exiting_office(self):
+      staff_id = self.test_46_get_valid_staff_id()
+      self.amity.reallocate_person(staff_id, 'bombay')
+      self.assertEqual(sys.stdout.getvalue(), 'Room BOMBAY do not exist as Office\n')
+
+    def test_49_get_valid_staff_id(self):
+      ids = [staff_id for staff_id, staff_info in self.staff_data.items() if staff_info.fullname.upper() == 'SAYO ALAGBE']
       return ids[0]
     
-    def test_49_create_new_living(self):
-      self.amity.create_room('cedar','living')
+    def test_50_reallocate_staff(self):
+      staff_id = self.test_49_get_valid_staff_id()
+      self.amity.reallocate_person(staff_id, 'saturn')
+      
+    def test_51_test_reallocate_staff(self):
+      staff_id = self.test_49_get_valid_staff_id()
+      self.assertTrue(staff_id in self.office_data['saturn'].members)
 
-    def test_50_reallocate_fellow(self):
-      fellow_id = self.test_48_get_valid_fellow_id()
+    def test_52_test_reallocate_invalid_staff_id(self):
+        self.amity.reallocate_person('S3242444', 'saturn')
+        self.assertEqual(sys.stdout.getvalue(), 'Staff ID: S3242444 does not exist\n')
+    
+    def test_53_create_new_living(self):
+        self.amity.create_room('cedar','living')
+
+    def test_54_add_new_fellow(self):
+        self.amity.add_person('Chiemeka','Alim','fellow','y')
+
+    def test_55_get_valid_fellow_id(self):
+        ids = [fellow_id for fellow_id, fellow_info in self.fellow_data.items() if fellow_info.fullname.upper() == 'CHIEMEKA ALIM']
+        return ids[0]
+
+    def test_56_test_reallocate_fellow_to_full_room(self):
+        fellow_id = self.test_55_get_valid_fellow_id()
+        self.amity.reallocate_person(fellow_id, 'iroko')
+        self.assertEqual(sys.stdout.getvalue(), 'Room IROKO is full.\n')
+
+    def test_57_test_reallocate_to_non_existing_living(self):
+        fellow_id = self.test_55_get_valid_fellow_id()
+        self.amity.reallocate_person(fellow_id, 'ojuelegba')
+        self.assertEqual(sys.stdout.getvalue(), 'Room OJUELEGBA does not exist as Living space\n')
+
+    def test_58_test_reallocate_invalid_fellow_id(self):
+        self.amity.reallocate_person('F32432232', 'saturn')
+        self.assertEqual(sys.stdout.getvalue(), 'Fellow ID: F32432232 does not exist\n')
+    
+    def test_59_get_valid_fellow_id(self):
+        ids = [fellow_id for fellow_id, fellow_info in self.fellow_data.items() if fellow_info.fullname.upper() == 'CHUKWUERIKA DIKE']
+        return ids[0]
+
+    def test_60_test_reallocate_fellow_to_same_room(self):
+        fellow_id = self.test_59_get_valid_fellow_id()
+        self.amity.reallocate_person(fellow_id, 'iroko')
+        self.assertEqual(sys.stdout.getvalue(), 'FELLOW CHUKWUERIKA DIKE with ID: %s is already in IROKO (LIVING)\n' %(fellow_id))
+
+    def test_62_get_valid_fellow_id(self):
+      ids = [fellow_id for fellow_id, fellow_info in self.fellow_data.items() if fellow_info.fullname.upper() == 'SUNDAY NWUGURU']
+      return ids[0]
+
+    def test_64_reallocate_fellow(self):
+      fellow_id = self.test_62_get_valid_fellow_id()
       self.amity.reallocate_person(fellow_id, 'cedar')
       
-    def test_51_reallocate_person(self):
-      fellow_id = self.test_48_get_valid_fellow_id()
+    def test_65_reallocate_person(self):
+      fellow_id = self.test_62_get_valid_fellow_id()
       self.assertTrue(fellow_id in self.living_data['cedar'].members)
 
-    def test_52_load_people(self):
+    def test_66_load_people(self):
       self.amity.load_people("tests/test_data_files/test_input.txt")
       self.assertTrue('EBUN OMONI' in self.office_data['neptune'].members.values() or 'EBUN OMONI' in self.office_data['saturn'].members.values())
 
-    def test_53_load_people(self):
+    def test_67_load_people(self):
       self.amity.load_people("tests/test_data_files/test_input.txt")
       self.assertTrue('MAYOWA FALADE' in self.living_data['iroko'].members.values() or 'MAYOWA FALADE' in self.living_data['cedar'].members.values())
 
-    def test_54_load_people_raises_error(self):
+    def test_68_load_people_raises_error(self):
       self.assertRaises(Exception, self.amity.load_people, 'no_file.txt')
     
-    def test_60_print_room_raises_error(self):
+    def test_69_print_room_raises_error(self):
       self.assertRaises(Exception, self.amity.print_room, 'no_room')
 
 if __name__ == '__main__':
-    unittest.main(verbosity=2)
+    unittest.main()
     
 

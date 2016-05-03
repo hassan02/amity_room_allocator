@@ -218,7 +218,7 @@ class DataManager(object):
                     else:
                         print('Room %s is full.' %(new_room_name.upper()))                
                 else:
-                    print('Room %s do not exist does not exist as Living space' % (new_room_name.upper()))
+                    print('Room %s does not exist as Living space' % (new_room_name.upper()))
             else:
                 print('Fellow ID: %s does not exist'% (person_id))
         else:
@@ -268,7 +268,7 @@ class DataManager(object):
                             living_choice = argument.split(' ')[3].strip()
                         else:
                             living_choice = 'N'
-                    self.add_person(first_name,last_name,person_role,living_choice)
+                    self.add_person(first_name, last_name, person_role, living_choice)
         else:
             raise Exception('Cannot locate file')  # Raise exception if file does not exist
 
