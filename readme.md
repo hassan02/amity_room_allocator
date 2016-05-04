@@ -40,9 +40,6 @@ Usage:
   amity.py print_unallocated [--o=filename]
   amity.py save_state [--db=sqlite_database]
   amity.py load_state [--db=sqlite_database]
-  amity.py clear_room <room_name>
-  amity.py remove_room <room_name>  
-  amity.py reset
   amity.py -h | --help
 
 Examples:
@@ -59,8 +56,6 @@ Examples:
   amity.py save_state [--db=mydatabase.db]
   amity.py load_state
   amity.py load_state [--db=mydatabase.db]
-  amity.py clear_room cedar
-  amity.py remove_room orion
-  amity.py reset
 
+  
   ```
