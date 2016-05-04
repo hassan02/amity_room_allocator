@@ -10,7 +10,7 @@ from model.fellow import Fellow
 
     
 class DataManager(object):
-    displayline = '..............................................................................'
+    
     def __init__(self, offices_file, livings_file, fellows_file, staffs_file):
         # Opens all shelve file
         self.office_data = shelve.open(offices_file)
@@ -36,12 +36,13 @@ class DataManager(object):
                 print('Room %s already exist' % (room_name.upper()))
         
     def load_all_rooms(self, filename = ''):
+        displayline = '..............................................................................'
         # Load all offices from data
         office_output = 'Loading All Offices...\n'
         for office, office_info in self.office_data.items():
             members_list = ', '.join(office_info.members.values()) if office_info.members else 'EMPTY'
             office_info.no_of_occupants = len(office_info.members)
-            office_output += ('%s(OFFICE) - %d of %d\n%s\n%s\n\n' % (office_info.name.upper(),office_info.no_of_occupants, office_info.max_occupants, self.displayline, members_list.upper()))
+            office_output += ('%s(OFFICE) - %d of %d\n%s\n%s\n\n' % (office_info.name.upper(),office_info.no_of_occupants, office_info.max_occupants, displayline, members_list.upper()))
         
 
         # Load all living rooms from data
@@ -49,7 +50,7 @@ class DataManager(object):
         for living, living_info in self.living_data.items():
             members_list = ", ".join(living_info.members.values()) if living_info.members else 'EMPTY'
             living_info.no_of_occupants = len(living_info.members)
-            living_output += ('%s(LIVING) - %d of %d\n%s\n%s\n\n' % (living_info.name.upper(), living_info.no_of_occupants, living_info.max_occupants, self.displayline, members_list.upper()))
+            living_output += ('%s(LIVING) - %d of %d\n%s\n%s\n\n' % (living_info.name.upper(), living_info.no_of_occupants, living_info.max_occupants, displayline, members_list.upper()))
 
 
         if filename:  # Check if file is specified
@@ -131,20 +132,21 @@ class DataManager(object):
             print('Fellow %s with ID NO: %s has been added to the system but unallocated.' %(fellow.fullname, fellow.id))
 
     def print_room(self,room_name):
+        displayline = '..............................................................................'
         room_name = room_name.lower()
         if room_name in self.living_data:  # Print room members if room is a living room
             print('Loading %s (LIVING) members...' % (room_name.upper()))
             living_info = self.living_data[room_name]
             members_list = ", ".join(living_info.members.values()) if living_info.members else 'EMPTY'
             living_info.no_of_occupants = len(living_info.members)
-            print('%s(LIVING) - %d of %d\n%s\n%s\n\n' % (living_info.name.upper(),living_info.no_of_occupants, living_info.max_occupants, self.displayline, members_list.upper()))
+            print('%s(LIVING) - %d of %d\n%s\n%s\n\n' % (living_info.name.upper(),living_info.no_of_occupants, living_info.max_occupants, displayline, members_list.upper()))
 
         elif room_name in self.office_data:  # Print room members if room is an office
             print('Loading %s (OFFICE) members...'% (room_name.upper()))
             office_info = self.office_data[room_name]
             members_list = ', '.join(office_info.members.values()) if office_info.members else 'EMPTY'
             office_info.no_of_occupants = len(office_info.members)
-            print('%s(OFFICE) - %d of %d\n%s\n%s\n\n' % (office_info.name.upper(),office_info.no_of_occupants, office_info.max_occupants, self.displayline, members_list.upper()))
+            print('%s(OFFICE) - %d of %d\n%s\n%s\n\n' % (office_info.name.upper(),office_info.no_of_occupants, office_info.max_occupants, displayline, members_list.upper()))
         
         else:
             raise Exception('Error. Room does not exist')  # Throw an exception if room does not exist    

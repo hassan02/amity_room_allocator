@@ -313,6 +313,9 @@ class TestAllocation(unittest.TestCase):
     def test_69_print_room_raises_error(self):
       self.assertRaises(Exception, self.amity.print_room, 'no_room')
 
+    def test_70_load_rooms_raises_error(self):
+      self.assertRaises(Exception, self.amity.print_allocations, 'no_file.txt')
+
 if __name__ == '__main__':
     unittest.main()
     
