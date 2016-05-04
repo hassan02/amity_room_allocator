@@ -55,7 +55,26 @@ class TestAllocation(unittest.TestCase):
 
     def test_01_add_staff_raises_error_no_room(self):
       self.amity.add_person('Samuel','Akintola','fellow','y')
+
+    def test_01_get_fellow_id(self):
+        ids = [fellow_id for fellow_id, fellow_info in self.fellow_data.items() if fellow_info.fullname.upper() == 'SAMUEL AKINTOLA']
+        return ids[0]
+
+    def test_01_get_staff_id(self):
+        ids = [staff_id for staff_id, staff_info in self.staff_data.items() if staff_info.fullname.upper() == 'BOLADE ALAWODE']
+        return ids[0]
     
+    def test_01_test_print_people(self):
+        fellow_id = self.test_01_get_fellow_id()
+        staff_id = self.test_01_get_staff_id()
+        all_persons = 'Loading all persons...\n'
+        all_persons += 'ID NO\t\tFULL NAME\t\tPERSON-TYPE\tALLOCATED\tROOM NAME\n'
+        all_persons += '.................................................................................\n'
+        all_persons +=  '%s\tSAMUEL AKINTOLA\t\tFELLOW\t\tFalse\t\t\n' % (fellow_id)
+        all_persons +=  '%s\tBOLADE ALAWODE\t\tSTAFF\t\tFalse\t\t\n\n' % (staff_id)
+        self.amity.print_people()
+        self.assertEqual(sys.stdout.getvalue(), all_persons)
+       
     def test_02_office_saved_in_data(self):
       self.amity.create_room('neptune','office')  # Create a sample office
     def test_03_test_office_saved_in_data(self):
@@ -219,7 +238,7 @@ class TestAllocation(unittest.TestCase):
     def test_48_test_reallocate_to_non_exiting_office(self):
       staff_id = self.test_46_get_valid_staff_id()
       self.amity.reallocate_person(staff_id, 'bombay')
-      self.assertEqual(sys.stdout.getvalue(), 'Room BOMBAY do not exist as Office\n')
+      self.assertEqual(sys.stdout.getvalue(), 'Room BOMBAY does not exist as required space\n')
 
     def test_49_get_valid_staff_id(self):
       ids = [staff_id for staff_id, staff_info in self.staff_data.items() if staff_info.fullname.upper() == 'SAYO ALAGBE']
@@ -234,8 +253,7 @@ class TestAllocation(unittest.TestCase):
       self.assertTrue(staff_id in self.office_data['saturn'].members)
 
     def test_52_test_reallocate_invalid_staff_id(self):
-        self.amity.reallocate_person('S3242444', 'saturn')
-        self.assertEqual(sys.stdout.getvalue(), 'Staff ID: S3242444 does not exist\n')
+        self.assertRaises(Exception, self.amity.reallocate_person, 'S3242444', 'saturn' )
     
     def test_53_create_new_living(self):
         self.amity.create_room('cedar','living')
@@ -255,11 +273,10 @@ class TestAllocation(unittest.TestCase):
     def test_57_test_reallocate_to_non_existing_living(self):
         fellow_id = self.test_55_get_valid_fellow_id()
         self.amity.reallocate_person(fellow_id, 'ojuelegba')
-        self.assertEqual(sys.stdout.getvalue(), 'Room OJUELEGBA does not exist as Living space\n')
+        self.assertEqual(sys.stdout.getvalue(), 'Room OJUELEGBA does not exist as required space\n')
 
     def test_58_test_reallocate_invalid_fellow_id(self):
-        self.amity.reallocate_person('F32432232', 'saturn')
-        self.assertEqual(sys.stdout.getvalue(), 'Fellow ID: F32432232 does not exist\n')
+        self.assertRaises(Exception, self.amity.reallocate_person, 'F32432232', 'iroko' )
     
     def test_59_get_valid_fellow_id(self):
         ids = [fellow_id for fellow_id, fellow_info in self.fellow_data.items() if fellow_info.fullname.upper() == 'CHUKWUERIKA DIKE']
@@ -268,7 +285,7 @@ class TestAllocation(unittest.TestCase):
     def test_60_test_reallocate_fellow_to_same_room(self):
         fellow_id = self.test_59_get_valid_fellow_id()
         self.amity.reallocate_person(fellow_id, 'iroko')
-        self.assertEqual(sys.stdout.getvalue(), 'FELLOW CHUKWUERIKA DIKE with ID: %s is already in IROKO (LIVING)\n' %(fellow_id))
+        self.assertEqual(sys.stdout.getvalue(), 'CHUKWUERIKA DIKE with ID: %s is already in IROKO\n' %(fellow_id))
 
     def test_62_get_valid_fellow_id(self):
       ids = [fellow_id for fellow_id, fellow_info in self.fellow_data.items() if fellow_info.fullname.upper() == 'SUNDAY NWUGURU']

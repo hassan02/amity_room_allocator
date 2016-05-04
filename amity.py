@@ -10,6 +10,7 @@ Usage:
   amity.py print_unallocated [--o=filename]
   amity.py save_state [--db=sqlite_database]
   amity.py load_state [--db=sqlite_database]
+  amity.py print_people
   amity.py -h | --help
 
 Examples:
@@ -26,6 +27,7 @@ Examples:
   amity.py save_state [--db=mydatabase.db]
   amity.py load_state
   amity.py load_state [--db=mydatabase.db]
+  amity.py print_people
   
 
 
@@ -48,12 +50,8 @@ if __name__ == '__main__':
     Amity().add_person(arguments['<first_name>'], arguments['<last_name>'], arguments['<STAFF/FELLOW>'], arguments['<wants_accommodation>'])
   elif arguments['print_room']:
     Amity().print_room(arguments['<room_name>'])
-  elif arguments['clear_room']:
-    Amity().clear_room(arguments['<room_name>'])
   elif arguments['reallocate_person']:
     Amity().reallocate_person(arguments['<person_identifier>'], arguments['<new_room_name>'])
-  elif arguments['remove_room']:
-    Amity().remove_room(arguments['<room_name>'])
   elif arguments['load_people']:
     Amity().load_people(arguments['<filename>'])
   elif arguments['print_allocations']:
@@ -64,6 +62,8 @@ if __name__ == '__main__':
     Amity().save_state(arguments['--db'])
   elif arguments['load_state']:
     Amity().load_state(arguments['--db'])
+  elif arguments['print_people']:
+    Amity().print_people()
   elif arguments['reset']:
     Amity().reset()
   

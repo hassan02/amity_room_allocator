@@ -1,3 +1,4 @@
+
 from staff import Staff
 from fellow import Fellow
 from living import Living
@@ -53,3 +54,5 @@ class Amity():
         self.db_manager = DatabaseManager(self.office_file, self.living_file, self.fellow_file, self.staff_file, filename)
         self.db_manager.load_state()
         self.db_manager.close_file()
+    def print_people(self):
+        self.manager.print_people()
