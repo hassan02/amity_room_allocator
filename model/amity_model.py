@@ -30,11 +30,11 @@ class Amity():
         else:
           raise Exception('Room type invalid. Must be office or living')
         self.manager.close_file()
-    def print_allocations(self):
-        self.manager.load_all_rooms()
+    def print_allocations(self, filename=''):
+        self.manager.load_all_rooms(filename)
         self.manager.close_file()
-    def print_unallocated(self):
-        self.manager.print_unallocated()
+    def print_unallocated(self, filename=''):
+        self.manager.print_unallocated(filename)
         self.manager.close_file()
     def print_room(self, room_name):
         self.manager.print_room(room_name)

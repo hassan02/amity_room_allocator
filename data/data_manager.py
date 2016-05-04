@@ -35,14 +35,14 @@ class DataManager(object):
             else:
                 print('Room %s already exist' % (room_name.upper()))
         
-    def load_all_rooms(self):
+    def load_all_rooms(self, filename = ''):
         # Load all offices from data
         office_output = 'Loading All Offices...\n'
         for office, office_info in self.office_data.items():
             members_list = ', '.join(office_info.members.values()) if office_info.members else 'EMPTY'
             office_info.no_of_occupants = len(office_info.members)
             office_output += ('%s(OFFICE) - %d of %d\n%s\n%s\n\n' % (office_info.name.upper(),office_info.no_of_occupants, office_info.max_occupants, self.displayline, members_list.upper()))
-        print(office_output)
+        
 
         # Load all living rooms from data
         living_output = 'Loading All Living Rooms...\n'
@@ -50,8 +50,19 @@ class DataManager(object):
             members_list = ", ".join(living_info.members.values()) if living_info.members else 'EMPTY'
             living_info.no_of_occupants = len(living_info.members)
             living_output += ('%s(LIVING) - %d of %d\n%s\n%s\n\n' % (living_info.name.upper(), living_info.no_of_occupants, living_info.max_occupants, self.displayline, members_list.upper()))
-        print(living_output)
-    
+
+        if filename:
+            if os.path.isfile(filename):  #Check if file exist
+                openfile = open(filename,'w')
+                openfile.write(office_output)
+                openfile.write(living_output)
+                print('Successfully output allocations to file')
+            else:
+                raise Exception('Cannot locate file')
+        else:
+            print(office_output)
+            print(living_output)
+
     def get_available_room(self, room_type):
         if room_type.upper() == 'LIVING' or room_type.upper() == 'OFFICE':
             rooms_data = self.living_data if room_type.upper() == 'LIVING' else self.office_data
@@ -197,7 +208,6 @@ class DataManager(object):
                 print('Fellow ID: %s does not exist'% (person_id))
         else:
             print('FELLOW %s with ID: %s is already in %s (LIVING)' %(fellow_name, person_id, new_room_name.upper()))
-        #self.living_data.close()
 
     def reallocate_staff(self, person_id, new_room_name):
         person_id = person_id.upper()
@@ -246,9 +256,8 @@ class DataManager(object):
         else:
             raise Exception('Cannot locate file')  # Raise exception if file does not exist
 
-    def print_unallocated(self):
-        unallocated_list = ''
-        print('Loading all unallocated people...')
+    def print_unallocated(self, filename):
+        unallocated_list = 'Loading all unallocated people...\n'
         for staff, fellow_data in self.fellow_data.items():
             if str(fellow_data.allocated) == 'False':
                 unallocated_list += fellow_data.fullname + ' (FELLOW)' + '\n'
@@ -256,8 +265,15 @@ class DataManager(object):
         for staff, staff_data in self.staff_data.items():
             if str(staff_data.allocated) == 'False':
                 unallocated_list += staff_data.fullname + ' (STAFF)' + '\n'
-        
-        print(unallocated_list)
+        if filename:
+            if os.path.isfile(filename):  #Check if file exist
+                openfile = open(filename,'w')
+                openfile.write(unallocated_list)
+                print('Successfully output list of unallocated people to file')
+            else:
+                raise Exception('Cannot locate file')
+        else:           
+            print(unallocated_list)
         
     def close_file(self):
         self.office_data.close()
