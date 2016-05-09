@@ -13,7 +13,7 @@ before_install:
   SITE_PKG_DIR=$VIRTUAL_ENV/lib/python$TRAVIS_PYTHON_VERSION/site-packages rm -f $VIRTUAL_ENV/lib/python$TRAVIS_PYTHON_VERSION/no-global-site-packages.txt  
 # command to run tests
 script: 
-  - nosetests --with-coverage
+  - nosetests --with-coverage --cover-package=model --cover-package=data
 
 after-success:
   - coveralls
