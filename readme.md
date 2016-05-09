@@ -1,6 +1,6 @@
 # Amity Room Allocation
 
-https://travis-ci.org/andela-hoyeboade/amity_model.svg?branch=working
+[![Build Status](https://travis-ci.org/andela-hoyeboade/amity_model.svg?branch=working)](https://travis-ci.org/andela-hoyeboade/amity_model)
 
 Amity has rooms which can be offices or living spaces. An office can occupy a maximum of 6 people. A living space can inhabit a maximum of 4 people.
 
