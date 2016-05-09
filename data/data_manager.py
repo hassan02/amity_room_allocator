@@ -224,6 +224,7 @@ class DataManager(object):
             if os.path.isfile(filename):  #Check if file exist
                 openfile = open(filename,'w')
                 openfile.write(unallocated_list)
+                openfile.close()
                 print('Successfully output list of unallocated people to file')
             else:
                 raise Exception('Cannot locate file')
