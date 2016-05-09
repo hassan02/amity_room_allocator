@@ -3,15 +3,16 @@ python:
   - "2.6"
   - "2.7"
 
+before_install:
+  SITE_PKG_DIR=$VIRTUAL_ENV/lib/python$TRAVIS_PYTHON_VERSION/site-packages rm -f $VIRTUAL_ENV/lib/python$TRAVIS_PYTHON_VERSION/no-global-site-packages.txt  
 # command to install dependencies
+
 install:
   - "pip install --upgrade pip"
   - "pip install coverage"
   - "pip install python-coveralls"
   - "pip install -r requirements.txt"
 
-before_install:
-  SITE_PKG_DIR=$VIRTUAL_ENV/lib/python$TRAVIS_PYTHON_VERSION/site-packages rm -f $VIRTUAL_ENV/lib/python$TRAVIS_PYTHON_VERSION/no-global-site-packages.txt  
 # command to run tests
 script: 
   - nosetests --with-coverage --cover-package=model --cover-package=data
