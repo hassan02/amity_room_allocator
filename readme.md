@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/andela-hoyeboade/amity_model.svg?branch=working)](https://travis-ci.org/andela-hoyeboade/amity_model)
 
+[![Coverage Status](https://coveralls.io/repos/github/andela-hoyeboade/amity_model/badge.svg?branch=working)](https://coveralls.io/github/andela-hoyeboade/amity_model?branch=working)
+
 Amity has rooms which can be offices or living spaces. An office can occupy a maximum of 6 people. A living space can inhabit a maximum of 4 people.
 
 A person to be allocated could be a fellow or staff. Staff cannot be allocated living spaces. Fellows have a choice to choose a living space or not.
