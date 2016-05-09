@@ -1,8 +1,11 @@
 # Amity Room Allocation
+A console application for allocating fellows and staffs to offices or living spaces in Amity.
 
 [![Build Status](https://travis-ci.org/andela-hoyeboade/amity_model.svg?branch=working)](https://travis-ci.org/andela-hoyeboade/amity_model)
 
 [![Coverage Status](https://coveralls.io/repos/github/andela-hoyeboade/amity_model/badge.svg?branch=working)](https://coveralls.io/github/andela-hoyeboade/amity_model?branch=working)
+
+# Description
 
 Amity has rooms which can be offices or living spaces. An office can occupy a maximum of 6 people. A living space can inhabit a maximum of 4 people.
 
@@ -26,11 +29,13 @@ This system will be used to automatically allocate spaces to people at random
 
 8. save_state [­­db=sqlite_database]​ - Persists all the data stored in the app to a SQLite database. Specifying the ​­­db​ parameter explicitly stores the data in the sqlite_database​ specified.
 
-9. load_state [db=sqlite_database>] - Loads data from a database into the application.
+9. load_state [db=sqlite_database] - Loads data from a database into the application.
+
+10. print_people - Prints a list of all persons indicating their names, identifiers, and their allocation status.
 
 Using the system.
 
-Usage:
+# Usage:
 ```
   amity.py create_room (<room_names> <room_types>)...
   amity.py add_person <first_name> <last_name> <STAFF/FELLOW> [<wants_accommodation>]
@@ -41,12 +46,14 @@ Usage:
   amity.py print_unallocated [--o=filename]
   amity.py save_state [--db=sqlite_database]
   amity.py load_state [--db=sqlite_database]
+  amity.py print_people
   amity.py -h | --help
 ```
 Examples:
 ```
   amity.py create_room Moon office
   amity.py create_room Cedar living
+  amity.py create_room Neptune office Iroko living Saturn office
   amity.py add_person HASSAN OYEBOADE FELLOW N
   amity.py add_person SUNDAY NWUGURU FELLOW Y
   amity.py add_person PROSPER OTEMUYIWA STAFF
@@ -58,6 +65,6 @@ Examples:
   amity.py save_state [--db=mydatabase.db]
   amity.py load_state
   amity.py load_state [--db=mydatabase.db]
-
+  amity.py print_people
   
 ```
