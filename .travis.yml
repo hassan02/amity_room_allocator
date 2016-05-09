@@ -6,21 +6,15 @@ python:
 # command to install dependencies
 install:
   - "pip install --upgrade pip"
-  - "pip install -e --use-mirrors"
   - "pip install coverage"
   - "pip install python-coveralls"
-  - "pip install -r requirements.txt --use-mirrors" 
+  - "pip install -r requirements.txt"
 
 before_install:
   SITE_PKG_DIR=$VIRTUAL_ENV/lib/python$TRAVIS_PYTHON_VERSION/site-packages rm -f $VIRTUAL_ENV/lib/python$TRAVIS_PYTHON_VERSION/no-global-site-packages.txt  
 # command to run tests
-
-before_script:
-  - pip install -r test_requirements.txt --use-mirrors
-  
 script: 
   - nosetests --with-coverage --cover-package=model --cover-package=data
-  - py.test coveralls/tests.py --doctest-modules --pep8 coveralls -v --cov coveralls --cov-report term-missing
 
 after-success:
   - coveralls
