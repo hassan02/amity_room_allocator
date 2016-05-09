@@ -1,19 +1,31 @@
 language: python
 python:
+  - "2.6"
   - "2.7"
 
 # command to install dependencies
 install:
   - "pip install --upgrade pip"
+  - "pip install -e . --use-mirrors"
   - "pip install coverage"
   - "pip install python-coveralls"
-  - "pip install -r requirements.txt"
+  - "pip install -r requirements.txt --use-mirrors" 
 
 before_install:
   SITE_PKG_DIR=$VIRTUAL_ENV/lib/python$TRAVIS_PYTHON_VERSION/site-packages rm -f $VIRTUAL_ENV/lib/python$TRAVIS_PYTHON_VERSION/no-global-site-packages.txt  
 # command to run tests
+
+before_script:
+  - pip install -r test_requirements.txt --use-mirrors
+  - git clone https://github.com/z4r/python-coveralls-example.git
+  - cd python-coveralls-example
+  - git checkout -qf 17b8119796516195527dcb4f454a2ebd41d60244
+  - py.test example/tests.py --cov=example
+  - cd -
+
 script: 
   - nosetests --with-coverage --cover-package=model --cover-package=data
+  - py.test coveralls/tests.py --doctest-modules --pep8 coveralls -v --cov coveralls --cov-report term-missing
 
 after-success:
   - coveralls
