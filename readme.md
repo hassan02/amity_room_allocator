@@ -3,7 +3,7 @@
 
 [![Build Status](https://travis-ci.org/andela-hoyeboade/amity_room_allocator.svg?branch=working)](https://travis-ci.org/andela-hoyeboade/amity_room_allocator)
 
-[![Coverage Status](https://coveralls.io/repos/github/andela-hoyeboade/amity_model/badge.svg?branch=working)](https://coveralls.io/github/andela-hoyeboade/amity_model?branch=working)
+[![Coverage Status](https://coveralls.io/repos/github/andela-hoyeboade/amity_room_allocator/badge.svg?branch=working)](https://coveralls.io/github/andela-hoyeboade/amity_room_allocator?branch=working)
 
 # Amity Room Allocation
 Python console application for allocating fellows and staffs to offices or living spaces in Amity.
