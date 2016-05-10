@@ -64,7 +64,7 @@ Glory be to God Almighty for helping me complete this task. I would also like to
 Hassan Oyeboade
 
 ## License
-MIT License 
+MIT License
 
 </content>
 </snippet>
