@@ -7,8 +7,8 @@ from office import Office
 from data.data_manager import DataManager
 from data.database_manager import DatabaseManager
 
-class Amity():
 
+class Amity():
     def __init__(self, office_file = 'data_files/offices', living_file = 'data_files/living', fellow_file = 'data_files/fellows', staff_file = 'data_files/staff'):
         self.office_file = office_file
         self.living_file = living_file
