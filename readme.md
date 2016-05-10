@@ -1,7 +1,7 @@
 <snippet>
 <content>
 
-[![Build Status](https://travis-ci.org/andela-hoyeboade/amity_model.svg?branch=working)](https://travis-ci.org/andela-hoyeboade/amity_model)
+[![Build Status](https://travis-ci.org/andela-hoyeboade/amity_room_allocator.svg?branch=working)](https://travis-ci.org/andela-hoyeboade/amity_room_allocator)
 
 [![Coverage Status](https://coveralls.io/repos/github/andela-hoyeboade/amity_model/badge.svg?branch=working)](https://coveralls.io/github/andela-hoyeboade/amity_model?branch=working)
 
