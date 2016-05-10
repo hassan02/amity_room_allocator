@@ -17,3 +17,4 @@ class Staff(Person):
         else:
             person_id_list.append(staff_id)
         return staff_id
+        id_list.close()

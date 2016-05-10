@@ -1,17 +1,17 @@
 """Amity Model
 
 Usage:
-  python amity.py create_room (<room_names> <room_types>)...
-  python amity.py add_person <first_name> <last_name> <STAFF/FELLOW> [<wants_accommodation>]
-  python amity.py reallocate_person <person_identifier> <new_room_name>
-  python amity.py load_people <filename>
-  python amity.py print_room <room_name>
-  python amity.py print_allocations [--o=filename]
-  python amity.py print_unallocated [--o=filename]
-  python amity.py save_state [--db=sqlite_database]
-  python amity.py load_state [--db=sqlite_database]
-  python amity.py print_people
-  python amity.py -h | --help
+  amity.py create_room (<room_names> <room_types>)...
+  amity.py add_person <first_name> <last_name> <STAFF/FELLOW> [<wants_accommodation>]
+  amity.py reallocate_person <person_identifier> <new_room_name>
+  amity.py load_people <filename>
+  amity.py print_room <room_name>
+  amity.py print_allocations [--o=filename]
+  amity.py print_unallocated [--o=filename]
+  amity.py save_state [--db=sqlite_database]
+  amity.py load_state [--db=sqlite_database]
+  amity.py print_people
+  amity.py -h | --help
 
 Examples:
   python amity.py create_room Moon office
@@ -21,6 +21,7 @@ Examples:
   python amity.py add_person PROSPER OTEMUYIWA STAFF
   python amity.py reallocate_person F3WEDS32WED obeche
   python amity.py load_people input.txt
+  python amity.py print_room obeche
   python amity.py print_allocations [--o=allocations.txt]
   python amity.py print_unallocated [--o=unallocated.txt]
   python amity.py save_state
@@ -35,7 +36,7 @@ Options:
     -h, --help  Show this screen and exit.
     
 """
-from external.docopt import docopt
+from docopt import docopt
 from model.amity_model import Amity
 
 if __name__ == '__main__':

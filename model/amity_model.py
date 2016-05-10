@@ -1,3 +1,4 @@
+import shelve
 
 from staff import Staff
 from fellow import Fellow
@@ -5,8 +6,6 @@ from living import Living
 from office import Office
 from data.data_manager import DataManager
 from data.database_manager import DatabaseManager
-import shelve
-#from data import DataManager
 
 class Amity():
 

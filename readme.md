@@ -20,17 +20,17 @@ Run the program
 
 ## Usage:
 ```
-  python amity.py create_room (<room_names> <room_types>)...
-  python amity.py add_person <first_name> <last_name> <STAFF/FELLOW> [<wants_accommodation>]
-  python amity.py reallocate_person <person_identifier> <new_room_name>
-  python amity.py load_people <filename>
-  python amity.py print_room <room_name>
-  python amity.py print_allocations [--o=filename]
-  python amity.py print_unallocated [--o=filename]
-  python amity.py save_state [--db=sqlite_database]
-  python amity.py load_state [--db=sqlite_database]
-  python amity.py print_people
-  python amity.py -h | --help
+  amity.py create_room (<room_names> <room_types>)...
+  amity.py add_person <first_name> <last_name> <STAFF/FELLOW> [<wants_accommodation>]
+  amity.py reallocate_person <person_identifier> <new_room_name>
+  amity.py load_people <filename>
+  amity.py print_room <room_name>
+  amity.py print_allocations [--o=filename]
+  amity.py print_unallocated [--o=filename]
+  amity.py save_state [--db=sqlite_database]
+  amity.py load_state [--db=sqlite_database]
+  amity.py print_people
+  amity.py -h | --help
 ```
 ## Usage Examples:
 
@@ -44,6 +44,7 @@ Run the program
   ```python amity.py load_people input.txt``` Load people from text file input.txt and add them to the system <br />
   ```python amity.py print_allocations``` Print all allocations to the screen <br />
   ```python amity.py print_allocations [--o=allocations.txt]``` Print all allocations to the text file allocations.txt <br />
+  ```python amity.py print_room obeche``` Print all the members of Room Obeche
   ```python amity.py print_unallocated``` Print all unallocated people to the screen <br />
   ```python amity.py print_unallocated [--o=unallocated.txt]``` Print all unallocated people to text file unallocated.txt <br />
   ```amity.py save_state``` Save the state of the system to the database <br />
