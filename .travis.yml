@@ -8,6 +8,6 @@ install:
   - "pip install -r requirements.txt"
 
 script: 
-  - nosetests --with-coverage
-  - coveralls
+  - "nosetests --with-coverage"
+  - "coveralls"
 
