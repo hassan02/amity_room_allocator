@@ -44,7 +44,7 @@ Run the program
   ```python amity.py load_people input.txt``` Load people from text file input.txt and add them to the system <br />
   ```python amity.py print_allocations``` Print all allocations to the screen <br />
   ```python amity.py print_allocations [--o=allocations.txt]``` Print all allocations to the text file allocations.txt <br />
-  ```python amity.py print_room obeche``` Print all the members of Room Obeche
+  ```python amity.py print_room obeche``` Print all the members of Room Obeche <br />
   ```python amity.py print_unallocated``` Print all unallocated people to the screen <br />
   ```python amity.py print_unallocated [--o=unallocated.txt]``` Print all unallocated people to text file unallocated.txt <br />
   ```amity.py save_state``` Save the state of the system to the database <br />
