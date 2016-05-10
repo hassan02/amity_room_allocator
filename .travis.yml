@@ -7,5 +7,6 @@ install:
 
 script: 
   - nosetests --with-coverage
+  
 after-success:
   - coveralls
