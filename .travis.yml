@@ -7,6 +7,6 @@ install:
 
 script: 
   - nosetests --with-coverage --cover-package=model --cover-package=data
-
+  - coverage run --source=model --source=data amity.py test
 after-success:
   - coveralls
