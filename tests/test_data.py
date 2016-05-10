@@ -13,8 +13,6 @@ class TestAllocation(unittest.TestCase):
     
     @classmethod
     def setUpClass(TestAllocation):
-      if os.path.isfile(os.path.realpath('tests/test_data_files/test_persons_ids.db')):
-        os.remove(os.path.realpath('tests/test_data_files/test_persons_ids.db'))
       if os.path.isfile(os.path.realpath('tests/test_data_files/test_offices.db')):
         os.remove(os.path.realpath('tests/test_data_files/test_offices.db'))
       if os.path.isfile(os.path.realpath('tests/test_data_files/test_living.db')):

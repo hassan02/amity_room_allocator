@@ -7,7 +7,6 @@ class Fellow(Person):
     def __init__(self, first_name, last_name):
         super(Fellow, self).__init__(first_name,last_name)
         self.id = self.get_fellow_id()
-        id_list.close()
     def get_fellow_id(self):
         if 'all_ids' not in self.id_list:
             self.id_list['all_ids'] = []
@@ -18,4 +17,4 @@ class Fellow(Person):
         else:
             person_id_list.append(fellow_id)
         return fellow_id
-        id_list.close()
+        self.id_list.close()
