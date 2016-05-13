@@ -1,3 +1,6 @@
+from os import sys, path
+sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+
 from model.person import Person
 from model.fellow import Fellow
 from model.staff import Staff
@@ -9,10 +12,14 @@ class TestPerson(unittest.TestCase):
         self.assertEqual(type(self.person), Person)
     def test_new_person_first_name(self):
         self.assertEqual(self.person.fullname, 'ADEOLA ADEDIRE')
-    def test_new_person_allocated(self):
-        self.assertEqual(self.person.allocated, 'False')
-    def test_new_person_room(self):
-        self.assertEqual(self.person.room, '')
+    def test_new_person_office_allocated(self):
+        self.assertEqual(self.person.office_allocated, False)
+    def test_new_person_office_space(self):
+        self.assertEqual(self.person.office, '')
+    def test_new_person_living_allocated(self):
+        self.assertEqual(self.person.living_allocated, False)
+    def test_new_person_living_allocated(self):
+        self.assertEqual(self.person.living, '')
     def test_create_new_person_raises_error(self):
         self.assertRaises(Exception, Person, 9, 'Ade')
 
@@ -27,10 +34,14 @@ class TestFellow(TestPerson):
         self.assertTrue(self.fellow.id.startswith('F'))
     def test_new_fellow_id_length(self):
         self.assertEqual(len(self.fellow.id), 11)
-    def test_new_fellow_allocated(self):
-        self.assertEqual(self.fellow.allocated, 'False')
-    def test_new_fellow_room(self):
-        self.assertEqual(self.fellow.room, '')
+    def test_new_fellow_living_allocated(self):
+        self.assertEqual(self.fellow.living_allocated, False)
+    def test_new_fellow_living(self):
+        self.assertEqual(self.fellow.living, '')
+    def test_new_fellow_office_allocated(self):
+        self.assertEqual(self.fellow.office_allocated, False)
+    def test_new_fellow_office(self):
+        self.assertEqual(self.fellow.office, '')
     def test_create_new_fellow_raises_error(self):
         self.assertRaises(Exception, Fellow, [3,4], 'Ade')
 
@@ -43,12 +54,14 @@ class TestStaff(TestPerson):
         self.assertEqual(self.staff.fullname, 'IKEM OKONKWO')
     def test_new_staff_id(self):
         self.assertTrue(self.staff.id.startswith('S'))
-    def test_new_staff_id_length(self):
-        self.assertEqual(len(self.staff.id), 11)
-    def test_new_staff_allocated(self):
-        self.assertEqual(self.staff.allocated, 'False')
-    def test_new_staff_room(self):
-        self.assertEqual(self.staff.room, '')
+    def test_new_staff_living_allocated(self):
+        self.assertEqual(self.staff.living_allocated, False)
+    def test_new_staff_living(self):
+        self.assertEqual(self.staff.living, '')
+    def test_new_staff_office_allocated(self):
+        self.assertEqual(self.staff.office_allocated, False)
+    def test_new_staff_office(self):
+        self.assertEqual(self.staff.office, '')
     def test_create_new_staffs_raises_error(self):
         self.assertRaises(Exception, Staff, {'A':'Apple'}, 4.5677)
 

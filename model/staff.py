@@ -1,20 +1,26 @@
-import shelve
 import random
+import shelve
 import string
+
 from person import Person 
+
 class Staff(Person):
-    id_list = shelve.open('data_files/person_ids')
+    """ This class creates a new staff and inherits from Person class"""
+
+    persons_data = shelve.open('data_files/persons')
     def __init__(self, first_name, last_name):
+        """initializes a new staff & inherit from the super class Person"""
         super(Staff, self).__init__(first_name,last_name)
+        self.person_type = 'staff'
         self.id = self.get_staff_id()
+
     def get_staff_id(self):
-        if 'all_ids' not in self.id_list:
-            self.id_list['all_ids'] = []
-        person_id_list = self.id_list['all_ids']
-        staff_id = 'S' + ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))
-        while staff_id in person_id_list:
-            staff_id = 'S' + ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))
+        """returns staff id by generating random string"""
+        staff_id = 'S' + ''.join(random.choice(string.ascii_uppercase + string.digits) \
+                                 for _ in range(10))
+        while staff_id in self.persons_data:
+            staff_id = 'S' + ''.join(random.choice(string.ascii_uppercase + string.digits) \
+                                     for _ in range(10))
         else:
-            person_id_list.append(staff_id)
-        return staff_id
-        self.id_list.close()
+            return staff_id
+        self.persons_data.close()

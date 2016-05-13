@@ -30,14 +30,19 @@ Examples:
   python amity.py load_state [--db=mydatabase.db]
   python amity.py print_people
   
-
-
 Options:
     -h, --help  Show this screen and exit.
     
 """
+from clint.textui import colored
 from docopt import docopt
+
 from model.amity_model import Amity
+
+print(colored.yellow('..............................................................'))
+print(colored.green('............Welcome to Amity Room Allocator...................'))
+print(colored.green('.Please run any of the commands below to perform an operation.'))
+print(colored.yellow('..............................................................'))
 
 if __name__ == '__main__':
   arguments = docopt(__doc__)
@@ -65,6 +70,3 @@ if __name__ == '__main__':
     Amity().load_state(arguments['--db'])
   elif arguments['print_people']:
     Amity().print_people()
-  elif arguments['reset']:
-    Amity().reset()
-  

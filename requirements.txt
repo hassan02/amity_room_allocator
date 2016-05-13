@@ -8,3 +8,4 @@ PyYAML==3.11
 requests==2.10.0
 sh==1.11
 six==1.10.0
+clint==0.5.1

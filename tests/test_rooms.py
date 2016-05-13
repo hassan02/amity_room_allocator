@@ -1,3 +1,6 @@
+from os import sys, path
+sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+
 from model.person import Person
 from model.fellow import Fellow
 from model.staff import Staff
