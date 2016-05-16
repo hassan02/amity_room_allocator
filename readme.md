@@ -33,9 +33,9 @@ Run the program
 ## Usage Examples:
 
   Create a new office Moon <br />
-  `python amity.py create_room Moon office` 
+  `python amity.py create_room Moon office` <br />
   Create a new living space Cedar <br />
-  `python amity.py create_room Cedar living` 
+  `python amity.py create_room Cedar living` <br />
   Create multiple rooms with Neptune as office, Iroko as living space and Saturn as office <br />
   `python amity.py create_room Neptune office Iroko living Saturn office`<br />
   Add a fellow HASSAN OYEBOADE to the system <br />
@@ -43,7 +43,7 @@ Run the program
   Add a fellow SUNDAY NWUGURU to the system and allocate him to an available living space <br />
   `python amity.py add_person SUNDAY NWUGURU FELLOW Y` 
   Add a staff PROSPER OTEMUYIWA to the system and allocate him to an available office <br />
-  `python amity.py add_person PROSPER OTEMUYIWA STAFF`
+  `python amity.py add_person PROSPER OTEMUYIWA STAFF`<br />
   Reallocate person with ID: F3WEDS32WED to room obeche <br />
   `python amity.py reallocate_person F3WEDS32WED obeche` <br />
   Load people from text file input.txt and add them to the system <br />
