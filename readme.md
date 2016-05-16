@@ -37,37 +37,37 @@ Run the program
   Create a new living space Cedar <br />
   `python amity.py create_room Cedar living` 
   Create multiple rooms with Neptune as office, Iroko as living space and Saturn as office <br />
-  `python amity.py create_room Neptune office Iroko living Saturn office`
+  `python amity.py create_room Neptune office Iroko living Saturn office`<br />
   Add a fellow HASSAN OYEBOADE to the system <br />
-  `python amity.py add_person HASSAN OYEBOADE FELLOW N`
+  `python amity.py add_person HASSAN OYEBOADE FELLOW N`<br />
   Add a fellow SUNDAY NWUGURU to the system and allocate him to an available living space <br />
   `python amity.py add_person SUNDAY NWUGURU FELLOW Y` 
   Add a staff PROSPER OTEMUYIWA to the system and allocate him to an available office <br />
   `python amity.py add_person PROSPER OTEMUYIWA STAFF`
   Reallocate person with ID: F3WEDS32WED to room obeche <br />
-  `python amity.py reallocate_person F3WEDS32WED obeche` 
+  `python amity.py reallocate_person F3WEDS32WED obeche` <br />
   Load people from text file input.txt and add them to the system <br />
-  `python amity.py load_people input.txt`
+  `python amity.py load_people input.txt`<br />
   Print all allocations to the screen <br />
-  `python amity.py print_allocations`
+  `python amity.py print_allocations`<br />
   Print all allocations to the text file allocations.txt <br />
-  `python amity.py print_allocations [--o=allocations.txt]`
+  `python amity.py print_allocations [--o=allocations.txt]`<br />
   Print all the members of Room obeche <br />
   `python amity.py print_room obeche`
   Print all unallocated people to the screen <br />
-  `python amity.py print_unallocated`
+  `python amity.py print_unallocated`<br />
   Print all unallocated people to text file unallocated.txt <br />
-  `python amity.py print_unallocated [--o=unallocated.txt]` 
+  `python amity.py print_unallocated [--o=unallocated.txt]` <br />
   Save the state of the system to the database <br />
-  `amity.py save_state`
+  `amity.py save_state` <br />
   Save the state of system to the database mydatabase.db <br />
   `amity.py save_state [--db=mydatabase.db]` 
   Load the state of the system from the database <br />
-  `amity.py load_state`
+  `amity.py load_state`<br />
   Load the state of the system from the database mydatabase.db <br />
-  `amity.py load_state [--db=mydatabase.db]`
+  `amity.py load_state [--db=mydatabase.db]`<br />
   Print a list of all persons in the system to get their ID, Name and Allocations <br>
-  `amity.py print_people`
+  `amity.py print_people`<br />
 
 ## Running tests
 1. Navigate to the project direcory
