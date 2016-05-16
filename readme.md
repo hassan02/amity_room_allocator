@@ -1,7 +1,7 @@
 <snippet>
 <content>
 
-# Amity Room Allocation
+# Amity Room Allocator
 
 [![Build Status](https://travis-ci.org/andela-hoyeboade/amity_room_allocator.svg?branch=working)](https://travis-ci.org/andela-hoyeboade/amity_room_allocator) [![Coverage Status](https://coveralls.io/repos/github/andela-hoyeboade/amity_room_allocator/badge.svg?branch=working)](https://coveralls.io/github/andela-hoyeboade/amity_room_allocator?branch=working)
 
@@ -54,7 +54,7 @@ Run the program
   ```
   python amity.py add_person SUNDAY NWUGURU FELLOW Y
   ```
-  Add a staff PROSPER OTEMUYIWA to the system and allocate him to an available office:
+  Add a staff PROSPER OTEMUYIWA to the system and allocate him an available office:
   ```
   python amity.py add_person PROSPER OTEMUYIWA STAFF
   ```
@@ -72,7 +72,7 @@ Run the program
   ```
   Print all allocations to the text file allocations.txt:
   ```
-  python amity.py print_allocations [--o=allocations.txt]
+  python amity.py print_allocations --o=allocations.txt
   ```
   Print all the members of _Obeche_:
   ```
@@ -84,7 +84,7 @@ Run the program
   ```
   Print all unallocated people to text file unallocated.txt:
   ```
-  python amity.py print_unallocated [--o=unallocated.txt]
+  python amity.py print_unallocated --o=unallocated.txt
   ```
   Save the state of the system to the database:
   ```
@@ -92,7 +92,7 @@ Run the program
   ```
   Save the state of system to the database mydatabase.db:
   ```
-  amity.py save_state [--db=mydatabase.db]
+  amity.py save_state --db=mydatabase.db
   ``` 
   Load the state of the system from the database:
   ```
@@ -100,7 +100,7 @@ Run the program
   ```
   Load the state of the system from the database mydatabase.db:
   ```
-  amity.py load_state [--db=mydatabase.db]
+  amity.py load_state --db=mydatabase.db
   ```
   Print a list of all persons in the system to get their ID, Name and Allocations:
   ```
@@ -109,11 +109,12 @@ Run the program
 
 ## Running tests
 1. Navigate to the project direcory
-2. Run nosetests --with-coverage --cover-package=model --cover-package=data to run test and check coverage
+2. Run nosetests --with-coverage to run test and check coverage
 
 ## References
-https://github.com/docopt/docopt
-http://docopt.org/
+https://github.com/docopt/docopt <br />
+http://docopt.org/ <br />
+https://docs.python.org
 
 ## Author
 Hassan Oyeboade
