@@ -22,12 +22,14 @@ Examples:
   python amity.py reallocate_person F3WEDS32WED obeche
   python amity.py load_people input.txt
   python amity.py print_room obeche
-  python amity.py print_allocations [--o=allocations.txt]
-  python amity.py print_unallocated [--o=unallocated.txt]
+  python amity.py print_allocations
+  python amity.py print_allocations --o=allocations.txt
+  python amity.py print_unallocated
+  python amity.py print_unallocated --o=unallocated.txt
   python amity.py save_state
-  python amity.py save_state [--db=mydatabase.db]
+  python amity.py save_state --db=mydatabase.db
   python amity.py load_state
-  python amity.py load_state [--db=mydatabase.db]
+  python amity.py load_state --db=mydatabase.db
   python amity.py print_people
   
 Options:
@@ -39,10 +41,10 @@ from docopt import docopt
 
 from model.amity_model import Amity
 
-print(colored.yellow('..............................................................'))
-print(colored.green('............Welcome to Amity Room Allocator...................'))
-print(colored.green('.Please run any of the commands below to perform an operation.'))
-print(colored.yellow('..............................................................'))
+print(colored.yellow('..............................................................................'))
+print(colored.green('....................Welcome to Amity Room Allocator...........................'))
+print(colored.green('........Please run any of the commands below to perform an operation..........'))
+print(colored.yellow('..............................................................................'))
 
 if __name__ == '__main__':
   arguments = docopt(__doc__)
