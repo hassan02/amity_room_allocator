@@ -1,10 +1,12 @@
 <snippet>
 <content>
 
+# Amity Room Allocator
+
 [![Build Status](https://travis-ci.org/andela-hoyeboade/amity_room_allocator.svg?branch=working)](https://travis-ci.org/andela-hoyeboade/amity_room_allocator) [![Coverage Status](https://coveralls.io/repos/github/andela-hoyeboade/amity_room_allocator/badge.svg?branch=working)](https://coveralls.io/github/andela-hoyeboade/amity_room_allocator?branch=working)
 
-# Amity Room Allocation
-Python console application for allocating fellows and staffs to offices or living spaces in Amity.
+## Description
+This is a Python Checkpoint1 project for D0B fellows in Andela. It's a console application modelled for one of Andela facilities, Amity. It can be used to allocate fellows and staffs to offices or living spaces. Offices and living spaces can be created and Fellows and Staffs can be added to the rooms. Fellows and Staffs are allocated offices by default, while fellows can choose if they want a living space or not. 
 
 ## Installation
 Clone the repo
@@ -32,31 +34,87 @@ Run the program
 ```
 ## Usage Examples:
 
-  ```python amity.py create_room Moon office``` Create a new office Moon <br />
-  ```python amity.py create_room Cedar living``` Create a new living space Cedar <br />
-  ```python amity.py create_room Neptune office Iroko living Saturn office``` Create multiple rooms with Neptune as office, Iroko as living space and Saturn as office <br />
-  ```python amity.py add_person HASSAN OYEBOADE FELLOW N``` Add a fellow HASSAN OYEBOADE to the system <br />
-  ```python amity.py add_person SUNDAY NWUGURU FELLOW Y``` Add a fellow SUNDAY NWUGURU to the system and allocate him to an available living space <br />
-  ```python amity.py add_person PROSPER OTEMUYIWA STAFF``` Add a staff PROSPER OTEMUYIWA to the system and allocate him to an available office <br />
-  ```python amity.py reallocate_person F3WEDS32WED obeche``` Reallocate person with ID: F3WEDS32WED to room obeche <br />
-  ```python amity.py load_people input.txt``` Load people from text file input.txt and add them to the system <br />
-  ```python amity.py print_allocations``` Print all allocations to the screen <br />
-  ```python amity.py print_allocations [--o=allocations.txt]``` Print all allocations to the text file allocations.txt <br />
-  ```python amity.py print_room obeche``` Print all the members of Room Obeche <br />
-  ```python amity.py print_unallocated``` Print all unallocated people to the screen <br />
-  ```python amity.py print_unallocated [--o=unallocated.txt]``` Print all unallocated people to text file unallocated.txt <br />
-  ```amity.py save_state``` Save the state of the system to the database <br />
-  ```amity.py save_state [--db=mydatabase.db]``` Save the state of system to the database mydatabase.db <br />
-  ```amity.py load_state``` Load the state of the system from the database <br />
-  ```amity.py load_state [--db=mydatabase.db]``` Load the state of the system from the database mydatabase.db <br />
-  ```amity.py print_people``` Print a list of all persons in the system to get their ID, Name and Allocations
+  Create a new office called _Moon_:
+  ```
+  python amity.py create_room Moon office
+  ```
+  Create a new living space called _Cedar_:
+  ```
+  python amity.py create_room Cedar living
+  ```
+  Create multiple rooms with _Neptune_ as office, _Iroko_ as living space and _Saturn_ as office:
+  ```
+  python amity.py create_room Neptune office Iroko living Saturn office
+  ```
+  Add a fellow HASSAN OYEBOADE to the system but don't allocate him a living space:
+  ```
+  python amity.py add_person HASSAN OYEBOADE FELLOW N
+  ```
+  Add a fellow SUNDAY NWUGURU to the system and allocate him to an available living space and office:
+  ```
+  python amity.py add_person SUNDAY NWUGURU FELLOW Y
+  ```
+  Add a staff PROSPER OTEMUYIWA to the system and allocate him an available office:
+  ```
+  python amity.py add_person PROSPER OTEMUYIWA STAFF
+  ```
+  Reallocate person with ID: F3WEDS32WED to _Obeche_:
+  ```
+  python amity.py reallocate_person F3WEDS32WED obeche
+  ```
+  Load people from text file input.txt and add them to the system:
+  ```
+  python amity.py load_people input.txt
+  ```
+  Print all allocations to the screen:
+  ```
+  python amity.py print_allocations
+  ```
+  Print all allocations to the text file allocations.txt:
+  ```
+  python amity.py print_allocations --o=allocations.txt
+  ```
+  Print all the members of _Obeche_:
+  ```
+  python amity.py print_room obeche
+  ```
+  Print all unallocated people to the screen:
+  ```
+  python amity.py print_unallocated
+  ```
+  Print all unallocated people to text file unallocated.txt:
+  ```
+  python amity.py print_unallocated --o=unallocated.txt
+  ```
+  Save the state of the system to the database:
+  ```
+  amity.py save_state
+  ```
+  Save the state of system to the database mydatabase.db:
+  ```
+  amity.py save_state --db=mydatabase.db
+  ``` 
+  Load the state of the system from the database:
+  ```
+  amity.py load_state
+  ```
+  Load the state of the system from the database mydatabase.db:
+  ```
+  amity.py load_state --db=mydatabase.db
+  ```
+  Print a list of all persons in the system to get their ID, Name and Allocations:
+  ```
+  amity.py print_people
+  ```
 
 ## Running tests
 1. Navigate to the project direcory
-2. Run nosetests --with-coverage --cover-package=model --cover-package=data to run test and check coverage
+2. Run nosetests --with-coverage to run test and check coverage
 
-## Credits
-Glory be to God Almighty for helping me complete this task. I would also like to appreciate my trainer, Anthony Nandaa, my mentor `Mayowa Falade` and my team mates `Sunday Nwuguru` and `Chukwuerika Dike` for their constant help throughout the course of implementing this checkpoint. And to all those who assisted me in one way or the other during the course of this project. I say `Thank you all`
+## References
+https://github.com/docopt/docopt <br />
+http://docopt.org/ <br />
+https://docs.python.org
 
 ## Author
 Hassan Oyeboade
