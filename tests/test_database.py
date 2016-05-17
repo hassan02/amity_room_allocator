@@ -38,28 +38,28 @@ class TestDatabase(unittest.TestCase):
         self.rooms_data = shelve.open(self.test_rooms_file)
         self.persons_data = shelve.open(self.test_persons_file)
         self.amity = Amity(self.test_rooms_file, self.test_persons_file)
-        room_dict = {'saturn': 'office', 'cedar':'living'}
-        person_dict = {"fellow": ['ADEOLA', 'ADEDOYIN', 'Y'], "staff": ['NADAYAR', 'ENGESI','N'] }
-        self.amity.create_room('saturn','office')
-        
+        room_dict = {'saturn': 'office', 'cedar': 'living'}
+        person_dict = {"fellow": ['ADEOLA', 'ADEDOYIN',
+                                  'Y'], "staff": ['NADAYAR', 'ENGESI', 'N']}
+        self.amity.create_room('saturn', 'office')
+
         self.rooms_data = shelve.open(self.test_rooms_file)
         self.amity = Amity(self.test_rooms_file, self.test_persons_file)
-        self.amity.create_room('cedar','living')
+        self.amity.create_room('cedar', 'living')
         self.rooms_data = shelve.open(self.test_rooms_file)
         self.amity = Amity(self.test_rooms_file, self.test_persons_file)
-        
+
         for person_type, person_info in person_dict.items():
             self.rooms_data = shelve.open(self.test_rooms_file)
             self.persons_data = shelve.open(self.test_persons_file)
-            self.amity.add_person(person_info[0],person_info[1],person_type, person_info[2])
+            self.amity.add_person(person_info[0], person_info[
+                                  1], person_type, person_info[2])
             self.amity = Amity(self.test_rooms_file, self.test_persons_file)
         self.amity.save_state(self.database_name)
         self.amity = Amity(self.test_rooms_file, self.test_persons_file)
         self.amity.load_state(self.database_name)
         self.rooms_data = shelve.open(self.test_rooms_file)
         self.persons_data = shelve.open(self.test_persons_file)
-        
-
 
     def tearDown(self):
         self.rooms_data.close()
@@ -93,9 +93,12 @@ class TestDatabase(unittest.TestCase):
     def test_load_state(self):
         self.assertTrue('saturn' in self.rooms_data)
         self.assertTrue('cedar' in self.rooms_data)
-        self.assertTrue('ADEOLA ADEDOYIN' in self.rooms_data['saturn'].members.values())
-        self.assertTrue('ADEOLA ADEDOYIN' in self.rooms_data['cedar'].members.values())
-        self.assertTrue('NADAYAR ENGESI' in self.rooms_data['saturn'].members.values())
+        self.assertTrue('ADEOLA ADEDOYIN' in self.rooms_data[
+                        'saturn'].members.values())
+        self.assertTrue('ADEOLA ADEDOYIN' in self.rooms_data[
+                        'cedar'].members.values())
+        self.assertTrue('NADAYAR ENGESI' in self.rooms_data[
+                        'saturn'].members.values())
 
 if __name__ == '__main__':
     unittest.main()
