@@ -23,11 +23,6 @@ class TestAllocation(unittest.TestCase):
             os.remove(os.path.realpath(
                 "tests/test_data_files/test_persons.db"))
     
-    @classmethod
-    def tearDownClass(cls):
-        os.remove(os.path.realpath("tests/test_data_files/test_rooms.db"))
-        os.remove(os.path.realpath("tests/test_data_files/test_persons.db"))
-
     def setUp(self):
         self.held = sys.stdout
         sys.stdout = StringIO()
