@@ -3,13 +3,12 @@ class Person(object):
 
     def __init__(self, first_name, last_name):
         """Set default properties for person object"""
-        if (type(first_name) == str and type(last_name) == str) and \
-                len(first_name + last_name) <= 49:
+        if (type(first_name) and type(last_name) == str) and \
+            len(first_name + ' ' +last_name) <= 50:  
             self.fullname = (first_name + ' ' + last_name).upper()
             self.office_allocated = False
             self.office = ''
             self.living_allocated = False
             self.living = ''
         else:
-            raise Exception(
-                'Enter valid name. Name must not be more than 50 characters')
+            raise Exception ('Please enter a valid name')
