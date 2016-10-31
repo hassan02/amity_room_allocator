@@ -9,13 +9,13 @@
 This is a Python Checkpoint1 project for D0B fellows in Andela. It's a console application modelled for one of Andela facilities, Amity. It can be used to allocate fellows and staffs to offices or living spaces. Offices and living spaces can be created and Fellows and Staffs can be added to the rooms. Fellows and Staffs are allocated offices by default, while fellows can choose if they want a living space or not. 
 
 ## Installation
-* Clone the repo
+Clone the repo
 ```git clone https://github.com/andela-hoyeboade/amity_room_allocator.git/``` and navigate to the project directory
 
-* Install dependencies
+Install dependencies
 ```pip install -r requirements.txt```
 
-* Run the program 
+Run the program 
 ```python amity.py``` shows a list of available commands
 
 ## Usage:
@@ -108,8 +108,8 @@ This is a Python Checkpoint1 project for D0B fellows in Andela. It's a console a
   ```
 
 ## Running tests
-* Navigate to the project direcory
-* Run nosetests --with-coverage to run test and check coverage
+1. Navigate to the project direcory
+2. Run nosetests --with-coverage to run test and check coverage
 
 ## References
 https://github.com/docopt/docopt <br />
